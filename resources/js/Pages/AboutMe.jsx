@@ -2,6 +2,8 @@ import React from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/inertia-react";
 import About from "../Components/AboutMe/About";
+import Examples from "@/Components/AboutMe/Examples";
+import Idea from "@/Components/AboutMe/Idea";
 
 export default function AboutMe(props) {
     return (
@@ -13,6 +15,8 @@ export default function AboutMe(props) {
             <Head title="About me" />
 
             <About />
+            <Examples />
+            <Idea />
         </AuthenticatedLayout>
     );
 }
