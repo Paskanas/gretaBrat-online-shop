@@ -13,10 +13,10 @@ export default function Welcome(props) {
                             <div>
                                 {props.auth.user ? (
                                     <Link
-                                        href={route("dashboard")}
+                                        href={route("home")}
                                         className="text-sm text-gray-700 dark:text-gray-500 underline"
                                     >
-                                        Dashboards
+                                        Home
                                     </Link>
                                 ) : (
                                     <>
