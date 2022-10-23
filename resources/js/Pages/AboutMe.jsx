@@ -14,7 +14,10 @@ export default function AboutMe(props) {
         >
             <Head title="About me" />
 
-            <About />
+            <About
+                photoPath="./images/personPhoto.png"
+                photoAlt="Person photo"
+            />
             <Examples />
             <Idea />
         </AuthenticatedLayout>

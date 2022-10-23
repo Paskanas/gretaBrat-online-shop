@@ -89,7 +89,7 @@ export default function Authenticated({ auth, header, children }) {
                             </div>
                         </div>
 
-                        {/* <div className="-mr-2 flex items-center sm:hidden">
+                        <div className="-mr-2 flex items-center sm:hidden">
                             <button
                                 onClick={() =>
                                     setShowingNavigationDropdown(
@@ -128,11 +128,11 @@ export default function Authenticated({ auth, header, children }) {
                                     />
                                 </svg>
                             </button>
-                        </div> */}
+                        </div>
                     </div>
                 </div>
 
-                {/* <div
+                <div
                     className={
                         (showingNavigationDropdown ? "block" : "hidden") +
                         " sm:hidden"
@@ -143,7 +143,25 @@ export default function Authenticated({ auth, header, children }) {
                             href={route("dashboard")}
                             active={route().current("dashboard")}
                         >
-                            Dashboard
+                            Home
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("about-me")}
+                            active={route().current("about-me")}
+                        >
+                            About me
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("contact")}
+                            active={route().current("contact")}
+                        >
+                            Contact
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("cart")}
+                            active={route().current("cart")}
+                        >
+                            Shoping bag
                         </ResponsiveNavLink>
                     </div>
 
@@ -167,7 +185,7 @@ export default function Authenticated({ auth, header, children }) {
                             </ResponsiveNavLink>
                         </div>
                     </div>
-                </div> */}
+                </div>
             </nav>
 
             {/* {header && (
