@@ -1,6 +1,7 @@
 import React from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/inertia-react";
+import ShopComponent from "@/Components/ShopComponent";
 
 export default function Home(props) {
     return (
@@ -10,6 +11,7 @@ export default function Home(props) {
             // header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Shop</h2>}
         >
             <Head title="Shop" />
+            <ShopComponent />
         </AuthenticatedLayout>
     );
 }

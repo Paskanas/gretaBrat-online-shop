@@ -2,6 +2,7 @@ import React from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/inertia-react";
 import Carousel from "@/Components/Home/Carousel";
+import ShopComponent from "@/Components/ShopComponent";
 
 export default function Home(props) {
     return (
@@ -13,6 +14,7 @@ export default function Home(props) {
             <Head title="Home" />
 
             <Carousel />
+            <ShopComponent small={true} />
         </AuthenticatedLayout>
     );
 }
