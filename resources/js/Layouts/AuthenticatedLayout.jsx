@@ -29,6 +29,12 @@ export default function Authenticated({ auth, header, children }) {
                                     Home
                                 </NavLink>
                                 <NavLink
+                                    href={route("shop")}
+                                    active={route().current("shop")}
+                                >
+                                    Shop
+                                </NavLink>
+                                <NavLink
                                     href={route("about-me")}
                                     active={route().current("about-me")}
                                 >
@@ -144,6 +150,12 @@ export default function Authenticated({ auth, header, children }) {
                             active={route().current("home")}
                         >
                             Home
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("shop")}
+                            active={route().current("shop")}
+                        >
+                            Shop
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
                             href={route("about-me")}

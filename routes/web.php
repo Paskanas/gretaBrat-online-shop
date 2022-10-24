@@ -40,4 +40,8 @@ Route::get('/cart', function () {
     return Inertia::render('Cart');
 })->middleware(['auth', 'verified'])->name('cart');
 
+Route::get('/shop', function () {
+    return Inertia::render('Shop');
+})->middleware(['auth', 'verified'])->name('shop');
+
 require __DIR__ . '/auth.php';
