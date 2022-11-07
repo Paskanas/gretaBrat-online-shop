@@ -22,7 +22,7 @@ class RoleControl
                 abort(401);
             }
         }
-        //komentars
+        //komentaras
         //kiek matau nereikia
         // if ($role === 'user') {
         //     if ($userRole < 1) {

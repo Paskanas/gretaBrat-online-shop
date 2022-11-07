@@ -1,7 +1,7 @@
 import React from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/inertia-react";
-import ShopComponent from "@/Components/ShopComponent";
+import ShopComponent from "@/Components/Shop/ShopComponent";
 
 export default function Home(props) {
     return (

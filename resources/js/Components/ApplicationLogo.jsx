@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ApplicationLogo({ className }) {
     return (
-        <img src="images/Logo.png" alt="Logo" className={className} />
+        <img src="/images/Logo.png" alt="Logo" className={className} />
         // <svg
         //     className={className}
         //     viewBox="0 0 316 316"

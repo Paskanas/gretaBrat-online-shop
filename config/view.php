@@ -14,7 +14,7 @@ return [
     */
 
     'paths' => [
-        resource_path('views'),
+        resource_path('views'),  //changed moved app.blade to this location from views
     ],
 
     /*

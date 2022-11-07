@@ -31,7 +31,6 @@ const Carousel = () => {
     const [stopAutoSlide, setStopAutoSlide] = useState(false);
 
     const checkResetSlide = (index) => {
-        console.log("check index " + index);
         if (index === dataExpanded.length - 1) {
             setCurrentIndex(1);
             setCurrentTransition(false);
@@ -73,19 +72,19 @@ const Carousel = () => {
         mouseOnOff ? setStopAutoSlide(true) : setStopAutoSlide(false);
     };
 
-    useEffect(() => {
-        if (!stopAutoSlide) {
-            const interval = setInterval(
-                () => {
-                    carouselInfiniteScroll();
-                },
-                currentIndex === 1 ? 10 : 8000
-            );
+    // useEffect(() => {
+    //     if (!stopAutoSlide) {
+    //         const interval = setInterval(
+    //             () => {
+    //                 carouselInfiniteScroll();
+    //             },
+    //             currentIndex === 1 ? 10 : 8000
+    //         );
 
-            return () => clearInterval(interval);
-        }
-        return;
-    }, [currentIndex, stopAutoSlide]);
+    //         return () => clearInterval(interval);
+    //     }
+    //     return;
+    // }, [currentIndex, stopAutoSlide]);
 
     return (
         <div
