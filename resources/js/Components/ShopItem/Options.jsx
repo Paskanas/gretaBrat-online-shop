@@ -1,4 +1,16 @@
+import AddToCartButton from "../AddToCartButton";
+
 const Options = (props) => {
+    // const [cartItems, setCartItems] = useState([]);
+    // useEffect(() => {
+    //     localStorage.setItem("products", JSON.stringify(cartItems));
+    // }, [cartItems]);
+
+    // useEffect(() => {
+    //     const items = JSON.parse(localStorage.getItem("products"));
+    //     setCartItems(items);
+    // }, []);
+
     return (
         <div className="mt-10">
             <h1 className="text-2xl" style={{ fontFamily: "Montseraat" }}>
@@ -15,9 +27,7 @@ const Options = (props) => {
                 className="block py-2.5 px-0 w-1/2 text-sm text-gray-500 bg-transparent border-2  border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer"
                 defaultValue={0}
             >
-                <option value={0} selected>
-                    Select size
-                </option>
+                <option value={0}>Select size</option>
                 {props.sizes.size.map((size, index) => {
                     return (
                         <option key={index + 1} value={index + 1}>
@@ -28,9 +38,11 @@ const Options = (props) => {
                     );
                 })}
             </select>
-            <button className="uppercase bg-pink-400 mt-5 px-4 py-2 rounded hover:bg-pink-500 transition-colors duration-300">
-                Add to bag
-            </button>
+            <AddToCartButton
+                cartItems={props.cartItems}
+                art={props.art}
+                setCartItems={props.setCartItems}
+            />
         </div>
     );
 };

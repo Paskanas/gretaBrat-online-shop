@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import Dropdown from "@/Components/Dropdown";
 import NavLink from "@/Components/NavLink";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
 import { Link } from "@inertiajs/inertia-react";
 
-export default function Authenticated({
-    auth,
-    header,
-    children,
-    cartItemsCount,
-}) {
+export default function Authenticated({ auth, header, children, cartItems }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+
+    const cartCount = cartItems.reduce((accumuliator, object) => {
+        console.log(accumuliator);
+        console.log(object.count);
+        return accumuliator + object.count;
+    }, 0);
 
     return (
         <div className="min-h-screen bg-white">
@@ -55,7 +56,7 @@ export default function Authenticated({
                                     href={route("cart")}
                                     active={route().current("cart")}
                                 >
-                                    Shopping bag ({cartItemsCount})
+                                    Shopping bag ({cartCount})
                                 </NavLink>
                                 {!auth.user && (
                                     <NavLink
