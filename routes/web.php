@@ -53,9 +53,10 @@ Route::get('/cart', function () {
     // ->middleware(['auth', 'verified'])
     ->name('cart');
 
-Route::get('/shop', function () {
-    return Inertia::render('Shop');
-})
+// Route::get('/shop', function () {
+//     return Inertia::render('Shop');
+// })
+Route::get('/shop', [ArtController::class, 'shop'])
     // ->middleware(['auth', 'verified'])
     ->name('shop');
 

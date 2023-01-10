@@ -25,7 +25,7 @@ export default function Home(props) {
             // header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Shop</h2>}
         >
             <Head title="Shop" />
-            <ShopComponent />
+            <ShopComponent arts={props.arts} />
         </AuthenticatedLayout>
     );
 }

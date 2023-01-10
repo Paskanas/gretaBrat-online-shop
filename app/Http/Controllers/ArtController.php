@@ -26,6 +26,21 @@ class ArtController extends Controller
         return Inertia::render('Home', ['arts' => $arts]);
     }
 
+    public function shop()
+    {
+        $arts = Art::all();
+        // foreach ($arts as $key => $art) {
+        //     $name = pathinfo($art->photo_path, PATHINFO_FILENAME);
+        //     $ext = pathinfo($art->photo_path, PATHINFO_EXTENSION);
+        //     $arts[$key]->photo_path = './images/artworks' . '/' . $name . '.' . $ext;
+
+        //     $name = pathinfo($art->hover_photo_path, PATHINFO_FILENAME);
+        //     $ext = pathinfo($art->hover_photo_path, PATHINFO_EXTENSION);
+        //     $arts[$key]->hover_photo_path = './images/artworks' . '/' . $name . '.' . $ext;
+        // }
+        return Inertia::render('Shop', ['arts' => $arts]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

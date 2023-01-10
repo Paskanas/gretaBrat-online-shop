@@ -4,6 +4,7 @@ import { Head } from "@inertiajs/inertia-react";
 import About from "../Components/AboutMe/About";
 import Examples from "@/Components/AboutMe/Examples";
 import Idea from "@/Components/AboutMe/Idea";
+import Header from "@/Components/Header";
 
 export default function AboutMe(props) {
     const [cartItems, setCartItems] = useState(
@@ -20,12 +21,14 @@ export default function AboutMe(props) {
     }, []);
 
     return (
-        <AuthenticatedLayout
-            auth={props.auth}
-            errors={props.errors}
-            cartItems={cartItems}
-            // header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Home</h2>}
-        >
+        // <AuthenticatedLayout
+        //     auth={props.auth}
+        //     errors={props.errors}
+        //     cartItems={cartItems}
+        //     // header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Home</h2>}
+        // >
+        <div>
+            <Header />
             <Head title="About me" />
 
             <About
@@ -34,6 +37,7 @@ export default function AboutMe(props) {
             />
             <Examples />
             <Idea />
-        </AuthenticatedLayout>
+        </div>
+        // </AuthenticatedLayout>
     );
 }
