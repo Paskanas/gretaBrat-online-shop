@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/inertia-react";
 import About from "../Components/AboutMe/About";
-import Examples from "@/Components/AboutMe/Examples";
-import Idea from "@/Components/AboutMe/Idea";
+import Achievements from "@/Components/AboutMe/Achievements";
 import Header from "@/Components/Header";
+import OtherShops from "@/Components/AboutMe/OtherShops";
+import Footer from "@/Components/Footer";
 
 export default function AboutMe(props) {
     const [cartItems, setCartItems] = useState(
@@ -17,16 +18,9 @@ export default function AboutMe(props) {
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem("products"));
         setCartItems(items);
-        console.log(items.length);
     }, []);
 
     return (
-        // <AuthenticatedLayout
-        //     auth={props.auth}
-        //     errors={props.errors}
-        //     cartItems={cartItems}
-        //     // header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Home</h2>}
-        // >
         <div>
             <Header />
             <Head title="About me" />
@@ -35,9 +29,13 @@ export default function AboutMe(props) {
                 photoPath="./images/personPhoto.png"
                 photoAlt="Person photo"
             />
-            <Examples />
-            <Idea />
+            <Achievements
+                achievements={props.achievements}
+                photoPath="./images/achievementPhoto.png"
+                photoAlt="Achievement photo"
+            />
+            <OtherShops />
+            <Footer />
         </div>
-        // </AuthenticatedLayout>
     );
 }

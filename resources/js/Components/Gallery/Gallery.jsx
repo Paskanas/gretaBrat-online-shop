@@ -9,15 +9,15 @@ import Img5 from "../../../../public/images/gallery/floating_thoughts.jpg";
 import Img6 from "../../../../public/images/gallery/reality-as-it-is.jpg";
 import Img7 from "../../../../public/images/gallery/escapism.jpg";
 import Img8 from "../../../../public/images/gallery/seen.jpg";
+import ImageModal from "../Modals/ImageModal";
 
 const Gallery = (props) => {
-    const [model, setModel] = useState(false);
+    const [modal, setModal] = useState(false);
     const [tempImgSrc, setTempImgSrc] = useState("");
 
     const handleClick = (imgSrc) => {
-        console.log(imgSrc);
         setTempImgSrc(imgSrc);
-        setModel(true);
+        setModal(true);
     };
 
     const data = [
@@ -57,22 +57,12 @@ const Gallery = (props) => {
 
     return (
         <>
-            <div
-                className={model ? "modal open" : "modal"}
-                onClick={() => {
-                    // close modal when outside of modal is clicked
-                    setModel(false);
-                }}
-            >
-                <img
-                    src={tempImgSrc}
-                    alt="aa"
-                    onClick={(e) => {
-                        // do not close modal if anything inside modal content is clicked
-                        e.stopPropagation();
-                    }}
-                />
-            </div>
+            <ImageModal
+                modal={modal}
+                setModal={setModal}
+                src={tempImgSrc}
+                alt="Zoomed image"
+            />
 
             <div className="flex flex-col items-center mt-1 w-full">
                 <div className="flex lg:max-w-screen-xl ">

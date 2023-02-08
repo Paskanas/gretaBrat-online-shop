@@ -1,12 +1,7 @@
-import { useRef, useState } from "react";
 import ShopImages from "./ShopImages";
 
 const ShopComponent = (props) => {
     const [small, arts] = [props.small, props.arts];
-    // const [textColorClass, setTextColorClass] = useState("black");
-    const [showHoverId, setShowHoverId] = useState(-1);
-    console.log(small);
-
     const showedItemsCount = small
         ? arts.length > 3
             ? 3
@@ -23,89 +18,10 @@ const ShopComponent = (props) => {
         ? "rounded hover:contrast-75 duration-500"
         : "rounded";
 
-    // const ImageToggleOnMouseOver = ({ img, hoverImg, title, id }) => {
-    //     const imageRef = useRef(null);
-    //     console.log(showHoverId);
-    //     console.log(id);
-    //     return (
-    //         <div
-    //             onMouseOver={() => {
-    //                 setShowHoverId(id);
-    //             }}
-    //             onMouseLeave={() => {
-    //                 setShowHoverId(-1);
-    //             }}
-    //         >
-    //             <img
-    //                 src={img}
-    //                 alt={title}
-    //                 className={
-    //                     `${imgHover} ${
-    //                         showHoverId === -1 ? "" : "hidden"
-    //                     }` /*+ showHoverId === -1 ? "" : " hidden"*/
-    //                 }
-    //                 ref={imageRef}
-    //             />
-    //             <img
-    //                 src={hoverImg}
-    //                 alt={title}
-    //                 className={
-    //                     imgHover /*+ showHoverId === id ? " hidden" : ""*/
-    //                 }
-    //                 ref={imageRef}
-    //             />
-    //         </div>
-    //     );
-    // };
-
     const ImageChangeOnMouseOver = ({ art }) => {
-        // console.log("showHoverId", showHoverId);
         return (
-            <div
-                className="flex flex-col justify-items-center justify-center"
-                // onMouseOver={() => {
-                //     setShowHoverId(art.id);
-                // }}
-                // onMouseLeave={() => {
-                //     setShowHoverId(-1);
-                // }}
-            >
-                <ShopImages
-                    art={art}
-                    imgHover={imgHover}
-                    // showHoverId={showHoverId}
-                />
-                {/* <img
-                    src={art.photo_path}
-                    alt={art.title}
-                    className={`${imgHover} ${
-                        showHoverId === art.id ? "hidden" : ""
-                    }`}
-                    // onMouseOver={(e) =>
-                    //     (e.currentTarget.src =
-                    //         art.hover_photo_path ?? art.photo_path)
-                    // }
-                    // onMouseLeave={(e) => (e.currentTarget.src = art.photo_path)}
-                />
-                <img
-                    src={art.hover_photo_path}
-                    alt={art.title}
-                    className={`${imgHover} ${
-                        showHoverId === art.id ? "" : "hidden"
-                    }`}
-                    // onMouseOver={(e) =>
-                    //     (e.currentTarget.src =
-                    //         art.hover_photo_path ?? art.photo_path)
-                    // }
-                    // onMouseLeave={(e) => (e.currentTarget.src = art.photo_path)}
-                /> */}
-                {/* <ImageToggleOnMouseOver
-                    img={art.photo_path}
-                    hoverImg={art.hover_photo_path}
-                    title={art.title}
-                    showHover={art.showHover}
-                    id={art.id}
-                /> */}
+            <div className="flex flex-col justify-items-center justify-center">
+                <ShopImages art={art} imgHover={imgHover} />
 
                 <h2>
                     <span className="font-bold border-b-2 border-black mt-3 w-10">
@@ -125,7 +41,6 @@ const ShopComponent = (props) => {
                 {arts.map((art, index) => {
                     art.showHover = false;
                     if (index < showedItemsCount) {
-                        console.log(art.hover_photo_path);
                         return (
                             <a
                                 href={`/shop/${art.id}`}
@@ -133,39 +48,6 @@ const ShopComponent = (props) => {
                                 key={index}
                             >
                                 <ImageChangeOnMouseOver art={art} />
-                                {/* <div className="flex flex-col justify-items-center justify-center">
-                                    {!art.showHover && (
-                                        // <img
-                                        //     src={art.photo_path}
-                                        //     alt={art.title}
-                                        //     className={imgHover}
-                                        //     onMouseOver={(e) =>
-                                        //         (e.currentTarget.src =
-                                        //             art.hover_photo_path ??
-                                        //             art.photo_path)
-                                        //     }
-                                        //     onMouseLeave={(e) =>
-                                        //         (e.currentTarget.src =
-                                        //             art.photo_path)
-                                        //     }
-                                        // />
-                                        <ImageToggleOnMouseOver
-                                            img={art.photo_path}
-                                            hoverImg={art.hover_photo_path}
-                                            title={art.title}
-                                        />
-                                    )}
-                                    <h2>
-                                        <span className="font-bold border-b-2 border-black mt-3 w-10">
-                                            {art.title}
-                                        </span>
-                                    </h2>
-                                    {small && (
-                                        <p className="text-black">
-                                            {art.description}
-                                        </p>
-                                    )}
-                                </div> */}
                             </a>
                         );
                     }
@@ -173,9 +55,6 @@ const ShopComponent = (props) => {
             </div>
         </div>
     );
-    // }
-
-    // return <h1>SHOP</h1>;
 };
 
 export default ShopComponent;

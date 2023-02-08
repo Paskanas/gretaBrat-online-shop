@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ArtController;
+use App\Http\Controllers\AchievementController;
+use App\Http\Controllers\EmailController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,17 +37,23 @@ Route::get('/', [ArtController::class, 'home'])->name('home');
 // // ->middleware(['auth', 'verified'])
 // ->name('home');
 
-Route::get('/about-me', function () {
-    return Inertia::render('AboutMe');
-})
-    // ->middleware(['auth', 'verified'])
-    ->name('about-me');
+// Route::get('/about-me', function () {
+//     return Inertia::render('AboutMe');
+// })
+//     // ->middleware(['auth', 'verified'])
+//     ->name('about-me');
+
+Route::get('/about-me', [AchievementController::class, 'index'])->name('about-me');
+
 
 Route::get('/contact', function () {
     return Inertia::render('Contact');
 })
     // ->middleware(['auth', 'verified'])
     ->name('contact');
+
+Route::post('/contacts', [EmailController::class, 'sendEmail'])->name('send');
+
 
 Route::get('/cart', function () {
     return Inertia::render('Cart');
@@ -62,7 +70,6 @@ Route::get('/shop', [ArtController::class, 'shop'])
 
 // Route::get('show', [ArtController::class, 'link'])->name('show-route');
 Route::get('/shop/{id}', [ArtController::class, 'showJs'])->name('shop-item');
-
 // Arts
 Route::prefix('arts-admin')->name('arts-')->group(function () {
     Route::get('', [ArtController::class, 'index'])->name('index')
