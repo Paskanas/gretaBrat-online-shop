@@ -11,32 +11,7 @@ const About = (props) => {
                         lakes and mysterious forests in Lithuania. My work is
                         inspired by the beauty of life and nature, it is an
                         invitation to pause, to take a deep breath and be with a
-                        present moment. Lorem ipsum dolor sit amet consectetur
-                        adipisicing elit. Reiciendis, vero ab accusamus saepe
-                        rerum esse ipsum provident ipsam laudantium maiores
-                        <br />
-                        <br />
-                        alias et harum quae labore quisquam molestiae non nobis
-                        praesentium neque dolorem officia quibusdam in. Dicta
-                        autem maiores et eaque illum iusto aspernatur voluptatem
-                        impedit doloribus, nisi dolor laudantium? Ex architecto
-                        itaque aliquam quidem, veritatis dignissimos soluta
-                        tempora numquam laborum esse officiis reprehenderit
-                        <br />
-                        <br />
-                        adipisci, voluptatum explicabo rerum nam accusantium qui
-                        fugiat voluptatibus sit nisi consequuntur sint
-                        laudantium. Incidunt nihil fuga earum veritatis magni
-                        iste sed ratione obcaecati atque consequuntur dolore
-                        quae dignissimos voluptate iure sapiente pariatur quasi,
-                        ullam autem repellendus rerum eos maiores eligendi.
-                        Cupiditate, enim aliquam nostrum quasi hic ipsa possimus
-                        facilis repellendus. Maxime iusto nostrum recusandae
-                        dolore dignissimos iste ea provident, libero voluptatum
-                        unde quo, praesentium distinctio. Consequatur iure
-                        quidem cupiditate nemo aperiam veniam libero delectus
-                        saepe inventore blanditiis cumque, ullam qui nam atque
-                        molestiae earum magni? Accusantium!
+                        present moment.
                     </p>
                 </div>
             </div>
