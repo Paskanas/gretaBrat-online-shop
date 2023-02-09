@@ -47,7 +47,7 @@ export default function Contact(props) {
                         />
                         <figure className="mt-4 ">
                             <img
-                                className="w-full"
+                                className="w-full rounded"
                                 src={Img1}
                                 alt="Contacts image"
                             />

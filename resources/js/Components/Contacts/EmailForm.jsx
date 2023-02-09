@@ -88,9 +88,13 @@ const EmailForm = (props) => {
 
     return (
         <div>
-            <h1 className="h1-color text-center">Get in touch</h1>
-            <form className="flex flex-col">
-                <label style={{ color: nameColor }} htmlFor="">
+            <h1 className="h1-color text-center mb-10 ">Get in touch</h1>
+            <form className="flex flex-col default-font">
+                <label
+                    style={{ color: nameColor }}
+                    htmlFor=""
+                    className="uppercase"
+                >
                     Name*
                 </label>
                 <input
@@ -102,7 +106,9 @@ const EmailForm = (props) => {
                     value={name}
                     onChange={() => setName(event.target.value)}
                 />
-                <label htmlFor="">Last name</label>
+                <label htmlFor="" className="uppercase">
+                    Last name
+                </label>
                 <input
                     type="text"
                     className="bg-neutral-100 placeholder:text-slate-400 border-none mb-4"
@@ -111,7 +117,11 @@ const EmailForm = (props) => {
                     value={surname}
                     onChange={() => setSurname(event.target.value)}
                 />
-                <label style={{ color: emailColor }} htmlFor="">
+                <label
+                    style={{ color: emailColor }}
+                    className="uppercase"
+                    htmlFor=""
+                >
                     Email*
                 </label>
                 <input
@@ -123,7 +133,11 @@ const EmailForm = (props) => {
                     value={email}
                     onChange={() => setEmail(event.target.value)}
                 />
-                <label style={{ color: messageColor }} htmlFor="">
+                <label
+                    className="uppercase"
+                    style={{ color: messageColor }}
+                    htmlFor=""
+                >
                     Message*
                 </label>
                 <textarea
@@ -138,7 +152,7 @@ const EmailForm = (props) => {
                 <div className="flex justify-center">
                     <button
                         type="submit"
-                        className="bg-black text-white w-28 p-4 py-2 rounded"
+                        className="bg-black text-white w-28 p-4 py-2 rounded leading-7 flex align-middle justify-center"
                         onClick={sendmail}
                     >
                         {props.loading ? (
@@ -146,7 +160,7 @@ const EmailForm = (props) => {
                                 color="#e31ed5"
                                 cssOverride={{}}
                                 loading
-                                size={35}
+                                size={28}
                             />
                         ) : (
                             "Submit"

@@ -4,22 +4,50 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --defaultColor: rgb(186, 121, 183);
+    --lighterColor: rgba(186, 121, 183, 0.5);
+    --lighterColor2: rgba(186, 121, 183, 0.25);
+}
+
+.active-bg-color:hover {
+    background-color: var(--lighterColor);
+    border-color: var(--defaultColor);
+}
+.default-bg-color:hover {
+    background-color: var(--lighterColor2);
+    border-color: var(--lighterColor);
+}
+.active-bg-color:focus {
+    background-color: var(--lighterColor);
+}
+.active-bg-color {
+    background-color: var(--lighterColor);
+}
+/* .default-bg-color {
+    border-color: var(--lighterColor2);
+} */
+.active-bg-color {
+    border-color: var(--defaultColor);
+    background-color: var(--lighterColor);
+}
+
 /* Header */
 .header-h2 {
-    font-family: Montserrat, sans-serif;
-    color: rgb(186, 121, 183);
+    font-family: "Montserrat", sans-serif;
+    color: var(--defaultColor);
 }
 
 /* About page */
 .h1-color {
-    color: rgb(186, 121, 183);
+    color: var(--defaultColor);
     text-transform: uppercase;
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
     font-size: 30px;
 }
 .other-shops-title {
-    color: rgb(186, 121, 183);
+    color: var(--defaultColor);
     font-family: "Montserrat", sans-serif;
 }
 
@@ -27,12 +55,12 @@
 .contact-h1 {
     font-family: Montserrat, sans-serif;
     font-size: 48px;
-    color: rgb(186, 121, 183);
+    color: var(--defaultColor);
 }
 .modal-message {
     font-family: Montserrat, sans-serif;
     font-size: 24px;
-    color: rgb(186, 121, 183);
+    color: var(--defaultColor);
     text-transform: uppercase;
     font-weight: 500;
 }
@@ -45,7 +73,11 @@
 .achievement-title {
     font-family: Montserrat, sans-serif;
     font-size: 32px;
-    color: rgb(186, 121, 183);
+    color: var(--defaultColor);
+}
+
+.default-font {
+    font-family: Montserrat, sans-serif;
 }
 
 @media (max-width: 1024px) {

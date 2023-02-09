@@ -1,7 +1,7 @@
 const OtherShops = () => {
     return (
         <div className="flex flex-col items-center mt-14">
-            <h1 className="m-6 h1-color">Collect NFT</h1>
+            <h1 className="m-10 h1-color">Collect NFT</h1>
             <p>Become an owner of Non-fungible token.</p>
             <div className="flex md:justify-around flex-col md:flex-row items-center w-8/12 text-center my-6">
                 <div className="w-full md:w-48 flex justify-center">

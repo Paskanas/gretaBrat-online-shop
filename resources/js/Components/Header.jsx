@@ -18,7 +18,7 @@ const Header = () => {
                 <div className="-mr-2 flex  items-center justify-between w-full px-4 ">
                     <div className="flex">
                         <Link href="/">
-                            <ApplicationLogo className="block h-9 w-auto text-gray-500" />
+                            <ApplicationLogo className="block h-9 w-auto text-black" />
                         </Link>
                     </div>
                     <button
@@ -27,7 +27,7 @@ const Header = () => {
                                 (previousState) => !previousState
                             )
                         }
-                        className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
+                        className="inline-flex items-center justify-center p-2 rounded-md text-black  default-bg-color  focus:outline-none  transition duration-150 ease-in-out"
                     >
                         <svg
                             className="h-6 w-6"
@@ -91,7 +91,7 @@ const Header = () => {
             <div className="hidden sm:block sm:items-center sm:ml-6">
                 <div className="flex justify-center mt-3">
                     <Link href="/">
-                        <ApplicationLogo className="block h-9 w-auto text-gray-500" />
+                        <ApplicationLogo className="block h-9 w-auto text-black" />
                     </Link>
                 </div>
                 <div className="flex justify-center gap-14 mt-5 mb-4">
