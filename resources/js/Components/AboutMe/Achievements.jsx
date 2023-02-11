@@ -3,7 +3,7 @@ const Achievements = (props) => {
         <>
             <div className="flex w-full justify-center mb-10">
                 <div className="flex  items-center w-9/12 lg:w-10/12">
-                    <h1 className="h1-color">EXHIBITIONS, SHOWS & AWARDS</h1>
+                    <h2 className="h2-color">EXHIBITIONS, SHOWS & AWARDS</h2>
                 </div>
             </div>
             <div className="flex w-full justify-center">

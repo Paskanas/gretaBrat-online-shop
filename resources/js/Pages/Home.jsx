@@ -24,11 +24,11 @@ export default function Home(props) {
             <Header />
             <Gallery arts={props.arts} />
             <div className="quote">
-                <h2 className="text1">
+                <p className="text1">
                     I found I could say things with color and shapes that I
                     couldn’t say any other way—things I had no words for.
-                </h2>
-                <h2 className="text2">- Georgia O Keeffe</h2>
+                </p>
+                <p className="text2">- Georgia O Keeffe</p>
             </div>
             <Footer />
         </div>

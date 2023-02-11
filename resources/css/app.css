@@ -46,6 +46,13 @@
     font-weight: 500;
     font-size: 30px;
 }
+.h2-color {
+    color: var(--defaultColor);
+    text-transform: uppercase;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+}
 .other-shops-title {
     color: var(--defaultColor);
     font-family: "Montserrat", sans-serif;
@@ -97,6 +104,10 @@
         font-size: 36px;
         line-height: 36px;
     }
+    .h2-color {
+        font-size: 36px;
+        line-height: 36px;
+    }
 }
 
 @media (min-width: 768px) {
@@ -104,6 +115,10 @@
 
 @media (min-width: 1024px) {
     .h1-color {
+        font-size: 40px;
+        line-height: 40px;
+    }
+    .h2-color {
         font-size: 40px;
         line-height: 40px;
     }
