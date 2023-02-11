@@ -1,12 +1,131 @@
 @import "home/home.css";
-
+@import "fonts/fonts.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-.about-h1-color {
-    color: rgb(186, 121, 183);
+:root {
+    --defaultColor: rgb(186, 121, 183);
+    --lighterColor: rgba(186, 121, 183, 0.5);
+    --lighterColor2: rgba(186, 121, 183, 0.25);
+}
+
+.active-bg-color:hover {
+    background-color: var(--lighterColor);
+    border-color: var(--defaultColor);
+}
+.default-bg-color:hover {
+    background-color: var(--lighterColor2);
+    border-color: var(--lighterColor);
+}
+.active-bg-color:focus {
+    background-color: var(--lighterColor);
+}
+.active-bg-color {
+    background-color: var(--lighterColor);
+}
+/* .default-bg-color {
+    border-color: var(--lighterColor2);
+} */
+.active-bg-color {
+    border-color: var(--defaultColor);
+    background-color: var(--lighterColor);
+}
+
+/* Header */
+.header-h2 {
+    font-family: "Montserrat", sans-serif;
+    color: var(--defaultColor);
+}
+
+/* About page */
+.h1-color {
+    color: var(--defaultColor);
     text-transform: uppercase;
     font-family: "Montserrat", sans-serif;
     font-weight: 500;
+    font-size: 30px;
+}
+.h2-color {
+    color: var(--defaultColor);
+    text-transform: uppercase;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+}
+.other-shops-title {
+    color: var(--defaultColor);
+    font-family: "Montserrat", sans-serif;
+}
+
+/* Contact page */
+.contact-h1 {
+    font-family: Montserrat, sans-serif;
+    font-size: 48px;
+    color: var(--defaultColor);
+}
+.modal-message {
+    font-family: Montserrat, sans-serif;
+    font-size: 24px;
+    color: var(--defaultColor);
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.achievement-text {
+    font-family: Montserrat, sans-serif;
+    font-size: 14px;
+    text-align: justify;
+}
+.achievement-title {
+    font-family: Montserrat, sans-serif;
+    font-size: 32px;
+    color: var(--defaultColor);
+}
+
+.default-font {
+    font-family: Montserrat, sans-serif;
+}
+
+@media (max-width: 1024px) {
+    /* contact page */
+    .contact-h1 {
+        font-family: Montserrat, sans-serif;
+        font-size: 32px;
+    }
+    .achievement-title {
+        font-family: Montserrat, sans-serif;
+        font-size: 24px;
+    }
+}
+
+@media (min-width: 640px) {
+    .h1-color {
+        font-size: 36px;
+        line-height: 36px;
+    }
+    .h2-color {
+        font-size: 36px;
+        line-height: 36px;
+    }
+}
+
+@media (min-width: 768px) {
+}
+
+@media (min-width: 1024px) {
+    .h1-color {
+        font-size: 40px;
+        line-height: 40px;
+    }
+    .h2-color {
+        font-size: 40px;
+        line-height: 40px;
+    }
+}
+
+@media (min-width: 1280px) {
+}
+
+@media (min-width: 1536px) {
 }

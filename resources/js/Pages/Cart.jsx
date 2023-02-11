@@ -14,7 +14,6 @@ export default function Cart(props) {
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem("products"));
         setCartItems(items);
-        console.log(items.length);
     }, []);
 
     return (

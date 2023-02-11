@@ -13,7 +13,7 @@ const Options = (props) => {
 
     return (
         <div className="mt-10">
-            <h1 className="text-2xl" style={{ fontFamily: "Montseraat" }}>
+            <h1 className="text-2xl" style={{ fontFamily: "Montserrat" }}>
                 {props.art.title}
             </h1>
 

@@ -14,7 +14,6 @@ export default function Home(props) {
     useEffect(() => {
         const items = JSON.parse(localStorage.getItem("products"));
         setCartItems(items);
-        console.log(items.length);
     }, []);
 
     return (
@@ -22,10 +21,9 @@ export default function Home(props) {
             auth={props.auth}
             errors={props.errors}
             cartItems={cartItems}
-            // header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Shop</h2>}
         >
             <Head title="Shop" />
-            <ShopComponent />
+            <ShopComponent arts={props.arts} />
         </AuthenticatedLayout>
     );
 }
