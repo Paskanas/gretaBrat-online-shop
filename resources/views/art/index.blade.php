@@ -39,7 +39,7 @@
                   <div class="d-flex flex-column w-100">
                     <a class="btn btn-outline-primary m-2" href="{{route('arts-show', $art->id)}}">SHOW</a>
                     {{-- not need if different page --}}
-                    @if(Auth::user()->role >9)
+                    @if(Auth::user()?->role??0 >9)
                     <a class="btn btn-outline-success m-2" href="{{route('arts-edit', $art)}}">EDIT</a>
                     <form class="" action="{{route('arts-delete', $art)}}" method="post">
                       @csrf
