@@ -1,91 +1,143 @@
 import React, { useDeferredValue, useEffect, useState } from "react";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import "./gallery.css";
 
-import Img1 from "../../../../public/images/gallery/arrival.jpg";
-import Img2 from "../../../../public/images/gallery/nowhere.jpg";
-import Img3 from "../../../../public/images/gallery/a-keeper.jpg";
-import Img4 from "../../../../public/images/gallery/neptune.jpg";
-import Img5 from "../../../../public/images/gallery/floating_thoughts.jpg";
-import Img6 from "../../../../public/images/gallery/reality-as-it-is.jpg";
-import Img7 from "../../../../public/images/gallery/escapism.jpg";
-import Img8 from "../../../../public/images/gallery/seen.jpg";
-import ImageModal from "../Modals/ImageModal";
+import ContentModal from "../Modals/ContentModal";
+import { isImage, isVideo } from "@/Utils/File";
 
 const Gallery = (props) => {
     const [modal, setModal] = useState(false);
     const [tempImgSrc, setTempImgSrc] = useState("");
-
-    const handleClick = (imgSrc) => {
+    const [modalExtension, setModalExtension] = useState("");
+    const handleClick = (imgSrc, extension) => {
         setTempImgSrc(imgSrc);
         setModal(true);
+        setModalExtension(extension);
     };
 
-    const data = [
-        {
-            id: 1,
-            imgSrc: Img1,
-        },
-        {
-            id: 2,
-            imgSrc: Img2,
-        },
-        {
-            id: 3,
-            imgSrc: Img3,
-        },
-        {
-            id: 4,
-            imgSrc: Img4,
-        },
-        {
-            id: 5,
-            imgSrc: Img5,
-        },
-        {
-            id: 6,
-            imgSrc: Img6,
-        },
-        {
-            id: 7,
-            imgSrc: Img7,
-        },
-        {
-            id: 8,
-            imgSrc: Img8,
-        },
-    ];
+    const isRowBased = useMediaQuery("(min-width: 1024px)");
+
+    const colStart = (order) => {
+        const gallery1ColumnStart = 1;
+        const gallery1ColumnEnd = 2;
+        const gallery2ColumnEnd = 3;
+        const galleryRowBigStep = 6;
+        const galleryRowSmallStep = 5;
+        let lRowStart = 0;
+        let lRowEnd = 0;
+        const lColumnStart =
+            order % 2 === 1 ? gallery1ColumnStart : gallery1ColumnEnd;
+        const lColumnEnd =
+            order % 2 === 1 ? gallery1ColumnEnd : gallery2ColumnEnd;
+        let loopTimes = 1;
+        if (order > 2) {
+            loopTimes = 1 + (order % 2 === 1 ? (order - 1) / 2 : order / 2);
+        } else {
+            loopTimes = order;
+        }
+        for (let i = 1; i <= loopTimes; i++) {
+            if (order % 2 === 1) {
+                if (i === 1) {
+                    lRowStart = 1;
+                    lRowEnd = 1 + galleryRowBigStep;
+                } else {
+                    if (i % 2 === 1) {
+                        lRowStart += galleryRowSmallStep;
+                        lRowEnd += galleryRowBigStep;
+                    } else {
+                        lRowStart += galleryRowBigStep;
+                        lRowEnd += galleryRowSmallStep;
+                    }
+                }
+            } else {
+                if (i === 2) {
+                    lRowStart = 1;
+                    lRowEnd = 1 + galleryRowSmallStep;
+                } else {
+                    if (i % 2 === 0 && i > 1) {
+                        lRowStart += galleryRowBigStep;
+                        lRowEnd += galleryRowSmallStep;
+                    } else {
+                        lRowStart += galleryRowSmallStep;
+                        lRowEnd += galleryRowBigStep;
+                    }
+                }
+            }
+        }
+
+        return {
+            container: () => ({
+                gridColumnStart: lColumnStart,
+                gridColumnEnd: lColumnEnd,
+                gridRowStart: lRowStart,
+                gridRowEnd: lRowEnd,
+            }),
+        };
+    };
 
     return (
         <>
-            <ImageModal
-                modal={modal}
-                setModal={setModal}
-                src={tempImgSrc}
-                alt="Zoomed image"
-            />
+            {
+                <ContentModal
+                    modal={modal}
+                    setModal={setModal}
+                    src={tempImgSrc}
+                    alt="Zoomed image"
+                    extension={modalExtension}
+                />
+            }
 
             <div className="flex flex-col items-center mt-1 w-full">
                 <div className="flex lg:max-w-screen-xl ">
                     <div className="gallery">
-                        {data.map((item, index) => {
-                            return (
-                                <figure
-                                    key={index}
-                                    // className={` m-1 p-4 hover:p-2 hover:pt-1 ease-in-out duration-300 gallery__item  gallery__item--${
-                                    className={` ease-in-out duration-300 gallery__item  gallery__item--${
-                                        index + 1
-                                    }`}
-                                >
-                                    <img
-                                        className="gallery__img"
-                                        src={item.imgSrc}
-                                        onClick={() => {
-                                            handleClick(item.imgSrc);
-                                        }}
-                                    />
-                                </figure>
-                            );
-                        })}
+                        {props.portfolioImages
+                            .sort((a, b) => a.order - b.order)
+                            .map((item, index) => {
+                                return (
+                                    <figure
+                                        key={item.order}
+                                        className={` ease-in-out duration-300 gallery__item`}
+                                        style={
+                                            isRowBased
+                                                ? colStart(
+                                                      item.order
+                                                  ).container()
+                                                : null
+                                        }
+                                    >
+                                        {isImage(item.extension) ? (
+                                            <img
+                                                className="gallery__img"
+                                                src={item.photo_path}
+                                                onClick={() => {
+                                                    handleClick(
+                                                        item.photo_path,
+                                                        item.extension
+                                                    );
+                                                }}
+                                            />
+                                        ) : isVideo(item.extension) ? (
+                                            <video
+                                                loop
+                                                autoPlay
+                                                muted
+                                                className="gallery__img"
+                                                onClick={() => {
+                                                    handleClick(
+                                                        item.photo_path,
+                                                        item.extension
+                                                    );
+                                                }}
+                                            >
+                                                <source
+                                                    src={item.photo_path}
+                                                    type="video/mp4"
+                                                />
+                                            </video>
+                                        ) : null}
+                                    </figure>
+                                );
+                            })}
                     </div>
                 </div>
             </div>

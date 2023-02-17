@@ -37,36 +37,6 @@
     grid-template-rows: repeat(22);
 }
 
-.gallery__item--1 {
-    grid-row-start: 1;
-    grid-row-end: calc(1 + var(--gallery_row_big_step));
-}
-.gallery__item--2 {
-    grid-row-start: calc(1 + var(--gallery_row_big_step));
-    grid-row-end: calc(
-        1 + var(--gallery_row_big_step) + var(--gallery_row_big_step)
-    );
-}
-.gallery__item--3 {
-    grid-row-start: calc(
-        1 + var(--gallery_row_big_step) + var(--gallery_row_big_step)
-    );
-    grid-row-end: calc(
-        1 + var(--gallery_row_big_step) + var(--gallery_row_big_step) +
-            var(--gallery_row_big_step)
-    );
-}
-.gallery__item--4 {
-    grid-row-start: calc(
-        1 + var(--gallery_row_big_step) + var(--gallery_row_big_step) +
-            var(--gallery_row_big_step)
-    );
-    grid-row-end: calc(
-        1 + var(--gallery_row_big_step) + var(--gallery_row_big_step) +
-            var(--gallery_row_big_step) + var(--gallery_row_big_step)
-    );
-}
-
 @media (min-width: 1024px) {
     .gallery {
         display: grid;
@@ -76,86 +46,6 @@
     .gallery__img {
         max-width: 100%;
         object-fit: cover;
-    }
-
-    .gallery__item--1 {
-        grid-column-start: var(--gallery_1_column_start);
-        grid-column-end: var(--gallery_1_column_end);
-        grid-row-start: 1;
-        grid-row-end: calc(1 + var(--gallery_row_big_step));
-    }
-
-    .gallery__item--2 {
-        grid-column-start: var(--gallery_1_column_start);
-        grid-column-end: var(--gallery_1_column_end);
-        grid-row-start: calc(1 + var(--gallery_row_big_step));
-        grid-row-end: calc(
-            1 + var(--gallery_row_big_step) + var(--gallery_row_small_step)
-        );
-    }
-
-    .gallery__item--3 {
-        grid-column-start: var(--gallery_1_column_start);
-        grid-column-end: var(--gallery_1_column_end);
-        grid-row-start: calc(
-            1 + var(--gallery_row_big_step) + var(--gallery_row_small_step)
-        );
-        grid-row-end: calc(
-            1 + var(--gallery_row_big_step) + var(--gallery_row_small_step) +
-                var(--gallery_row_big_step)
-        );
-    }
-
-    .gallery__item--4 {
-        grid-column-start: var(--gallery_1_column_start);
-        grid-column-end: var(--gallery_1_column_end);
-        grid-row-start: calc(
-            1 + var(--gallery_row_big_step) + var(--gallery_row_small_step) +
-                var(--gallery_row_big_step)
-        );
-        grid-row-end: calc(
-            1 + var(--gallery_row_big_step) + var(--gallery_row_small_step) +
-                var(--gallery_row_big_step) + var(--gallery_row_small_step)
-        );
-    }
-
-    .gallery__item--5 {
-        grid-column-start: var(--gallery_1_column_end);
-        grid-column-end: var(--gallery_2_column_end);
-        grid-row-start: 1;
-        grid-row-end: calc(1 + var(--gallery_row_small_step));
-    }
-
-    .gallery__item--6 {
-        grid-column-start: var(--gallery_1_column_end);
-        grid-column-end: var(--gallery_2_column_end);
-        grid-row-start: calc(1 + var(--gallery_row_small_step));
-        grid-row-end: calc(
-            1 + var(--gallery_row_small_step) + var(--gallery_row_big_step)
-        );
-    }
-    .gallery__item--7 {
-        grid-column-start: var(--gallery_1_column_end);
-        grid-column-end: var(--gallery_2_column_end);
-        grid-row-start: calc(
-            1 + var(--gallery_row_small_step) + var(--gallery_row_big_step)
-        );
-        grid-row-end: calc(
-            1 + var(--gallery_row_small_step) + var(--gallery_row_big_step) +
-                var(--gallery_row_small_step)
-        );
-    }
-    .gallery__item--8 {
-        grid-column-start: var(--gallery_1_column_end);
-        grid-column-end: var(--gallery_2_column_end);
-        grid-row-start: calc(
-            1 + var(--gallery_row_small_step) + var(--gallery_row_big_step) +
-                var(--gallery_row_small_step)
-        );
-        grid-row-end: calc(
-            1 + var(--gallery_row_small_step) + var(--gallery_row_big_step) +
-                var(--gallery_row_small_step) +var(--gallery_row_big_step)
-        );
     }
 }
 

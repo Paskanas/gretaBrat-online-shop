@@ -69,6 +69,21 @@
                 {{-- @endif --}}
               </div>
             </li>
+            <li class="nav-item dropdown">
+              <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                Portfolio
+              </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{route('portfolioImages-index')}}">
+                  Portfolio Images List
+                </a>
+                {{-- @if(Auth::user()->role >9) --}}
+                <a class="dropdown-item" href="{{route('portfolioImages-create')}}">
+                  New portfolio image
+                </a>
+                {{-- @endif --}}
+              </div>
+            </li>
             {{-- <li class="nav-item dropdown">
               <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                 Dishes
