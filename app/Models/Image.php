@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 
 class Image extends Model
 {
@@ -13,11 +14,15 @@ class Image extends Model
         $name = pathinfo($imagePath, PATHINFO_FILENAME);
         $ext = pathinfo($imagePath, PATHINFO_EXTENSION);
         if ($all) {
-            $path = asset("/images/$directoryName") . '/' . $name . '.' . $ext;
+            $path = asset("/storage/images/$directoryName") . '/' . $name . '.' . $ext;
         } else {
-            $path = public_path("/images/$directoryName") . '/' . $name . '.' . $ext;
+            if (App::environment('production')) {
+                $path = getcwd() . "/storage/images/$directoryName/" . $name . '.' . $ext;
+            } else {
+                $path = public_path("/storage/images/$directoryName") . '/' . $name . '.' . $ext;
+            }
         }
-        dump($path);
+
         if (file_exists($path)) {
             unlink($path);
         }
@@ -31,8 +36,14 @@ class Image extends Model
         if ($dbImagePath) {
             $this->deleteImage($dbImagePath, $directoryName, true);
         }
-        $image->move(public_path() . "/images/$directoryName", $file);
-        return asset("/images/$directoryName") . '/' . $file;
+
+        if (App::environment('production')) {
+            $image->move(getcwd() . "/storage/images/$directoryName", $file);
+        } else {
+            $image->move(public_path() . "/storage/images/$directoryName", $file);
+        }
+
+        return asset("/storage/images/$directoryName") . '/' . $file;
     }
 
     public function getExtension($itemName)
@@ -45,7 +56,11 @@ class Image extends Model
     {
         $name = pathinfo($imagePath, PATHINFO_FILENAME);
         $ext = pathinfo($imagePath, PATHINFO_EXTENSION);
-        $path = public_path("/images/$directoryName") . '/' . $name . '.' . $ext;
+        if (App::environment('production')) {
+            $path = getcwd() . "/storage/images/$directoryName/" . $name . '.' . $ext;
+        } else {
+            $path = public_path("/storage/images/$directoryName") . '/' . $name . '.' . $ext;
+        }
         return $path;
     }
 }

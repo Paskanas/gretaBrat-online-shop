@@ -30,15 +30,6 @@ class ArtController extends Controller
     public function shop()
     {
         $arts = Art::all();
-        // foreach ($arts as $key => $art) {
-        //     $name = pathinfo($art->photo_path, PATHINFO_FILENAME);
-        //     $ext = pathinfo($art->photo_path, PATHINFO_EXTENSION);
-        //     $arts[$key]->photo_path = './images/artworks' . '/' . $name . '.' . $ext;
-
-        //     $name = pathinfo($art->hover_photo_path, PATHINFO_FILENAME);
-        //     $ext = pathinfo($art->hover_photo_path, PATHINFO_EXTENSION);
-        //     $arts[$key]->hover_photo_path = './images/artworks' . '/' . $name . '.' . $ext;
-        // }
         return Inertia::render('Shop', ['arts' => $arts]);
     }
 
@@ -114,10 +105,14 @@ class ArtController extends Controller
 
 
         if ($request->file('photoPath')) {
+            $this->deletePicture($art, $image, $art->photo_path);
+            $art->delete();
             $art->photo_path = $image->processImage($request, $art->title, 'photoPath', $art->photo_path, 'artworks');
         }
 
         if ($request->file('hoverPhotoPath')) {
+            $this->deletePicture($art, $image, $art->hover_photo_path);
+            $art->delete();
             $art->hover_photo_path = $image->processImage($request, 'hover' . $art->title, 'hoverPhotoPath', $art->hover_photo_path, 'artworks');
         }
 
@@ -133,23 +128,17 @@ class ArtController extends Controller
      */
     public function destroy(Art $art, Image $image)
     {
-        $this->deletePicture($art, $image);
+        $this->deletePicture($art, $image, $art->photo_path);
+        $this->deletePicture($art, $image, $art->hover_photo_path);
         $art->delete();
         return redirect()->route('arts-index');
     }
 
-    public function deletePicture(Art $art, Image $image)
+    public function deletePicture(Art $art, Image $image, $path)
     {
-        // $name = pathinfo($art->photo_path, PATHINFO_FILENAME) ?? 'none';
-        // $ext = pathinfo($art->photo_path, PATHINFO_EXTENSION) ?? '.jpg';
-        // $path = public_path('/images') . '/' . $name . '.' . $ext;
-        // dump($path);
-        // if (file_exists($path)) {
-        //     unlink($path);
-        // }
 
         if ($art->photo_path) {
-            $image->deleteImage($art->photo_path, 'artworks');
+            $image->deleteImage($path, 'artworks');
         }
 
         $art->photo_path = null;

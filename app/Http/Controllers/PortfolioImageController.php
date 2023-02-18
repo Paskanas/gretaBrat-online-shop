@@ -100,7 +100,6 @@ class PortfolioImageController extends Controller
     public function show(int $portfolioImageId, Image $image, ImageManager $imageManager)
     {
         $portfolioImage = PortfolioImage::where('id', $portfolioImageId)->first();
-        // $data = getimagesize($portfolioImage->photo_path);
         $extension = $image->getExtension($portfolioImage->photo_path);
         if ($extension === 'jpg') {
             $width = $imageManager->make($image->getAssetPath($portfolioImage->photo_path, $this->directory))->width();
@@ -111,14 +110,10 @@ class PortfolioImageController extends Controller
             $getID3 = new getID3;
             $file = $getID3->analyze($image->getAssetPath($portfolioImage->photo_path, $this->directory));
             $portfolioImage['imageDimentions'] = [$file['video']['resolution_x'], $file['video']['resolution_y']];
-            // dump("Duration: " . $file['playtime_string'] .
-            //     " / Dimensions: " . $file['video']['resolution_x'] . " wide by " . $file['video']['resolution_y'] . " tall" .
-            //     " / Filesize: " . $file['filesize'] . " bytes<br />");
             $portfolioImage['isVideo'] = true;
         }
         return view('portfolioImage.show', [
             'portfolioImage' => $portfolioImage
-            // , 'contentData' => $data
         ]);
     }
 
@@ -166,10 +161,10 @@ class PortfolioImageController extends Controller
         $portfolioImage->title = $request->title;
         $portfolioImage->order = $request->order;
 
-        $this->deletePicture($portfolioImage, $image);
-        $portfolioImage->delete();
 
         if ($request->file('photoPath')) {
+            $this->deletePicture($portfolioImage, $image);
+            $portfolioImage->delete();
             $portfolioImage->photo_path = $image->processImage($request, $portfolioImage->title, 'photoPath', $portfolioImage->photo_path, $this->directory);
         }
 
