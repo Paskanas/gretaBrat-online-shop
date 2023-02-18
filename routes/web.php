@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArtController;
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\PortfolioImageController as PortfolioImage;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -17,7 +18,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', [ArtController::class, 'home'])->name('home');
+Route::get('/', [PortfolioImage::class, 'home'])->name('home');
 
 Route::get('/about-me', [AchievementController::class, 'index'])->name('about-me');
 
@@ -45,6 +46,24 @@ Route::prefix('arts-admin')->name('arts-')->group(function () {
     Route::get('show/{id}', [ArtController::class, 'show'])->name('show')
         ->middleware('roleControl:admin');
     Route::delete('delete-picture/{art}', [ArtController::class, 'deletePicture'])->name('delete-picture');
+});
+// Portfolio Images
+Route::prefix('portfolioImages-admin')->name('portfolioImages-')->group(function () {
+    Route::get('', [PortfolioImage::class, 'index'])->name('index')
+        ->middleware('roleControl:admin');
+    Route::get('create', [PortfolioImage::class, 'create'])->name('create')
+        ->middleware('roleControl:admin');
+    Route::post('', [PortfolioImage::class, 'store'])->name('store')
+        ->middleware('roleControl:admin');
+    Route::get('edit/{portfolioImage}', [PortfolioImage::class, 'edit'])->name('edit')
+        ->middleware('roleControl:admin');
+    Route::put('{portfolioImage}', [PortfolioImage::class, 'update'])->name('update')
+        ->middleware('roleControl:admin');
+    Route::delete('{portfolioImage}', [PortfolioImage::class, 'destroy'])->name('delete')
+        ->middleware('roleControl:admin');
+    Route::get('show/{id}', [PortfolioImage::class, 'show'])->name('show')
+        ->middleware('roleControl:admin');
+    Route::delete('delete-picture/{portfolioImage}', [PortfolioImage::class, 'deletePicture'])->name('delete-picture');
 });
 
 require __DIR__ . '/auth.php';

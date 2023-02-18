@@ -1,7 +1,7 @@
 import React from "react";
 import "./modal.css";
 
-const Modal = ({ children, modal, setModal, close = true }) => {
+const Modal = ({ children, modal, setModal, extension, close = true }) => {
     return (
         <div
             className={modal ? "modal open" : "modal"}

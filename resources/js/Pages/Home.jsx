@@ -22,7 +22,7 @@ export default function Home(props) {
         <div>
             <Head title="Home" />
             <Header />
-            <Gallery arts={props.arts} />
+            <Gallery portfolioImages={props.portfolioImages} />
             <div className="quote">
                 <p className="text1">
                     I found I could say things with color and shapes that I

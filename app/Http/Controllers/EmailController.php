@@ -5,12 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Contact;
+use Illuminate\Support\Facades\App;
 use Validator;
 
 class EmailController extends Controller
 {
-
-
 
     public function sendEmail(Request $request)
     {
@@ -31,17 +30,18 @@ class EmailController extends Controller
                 'errors' => $validator->messages(),
             ]);
         } else {
+            $name = $request->name;
+            $surname = $request->surname;
+            $email = $request->email;
+            $messages = $request->message;
+            if (App::environment('production')) {
+                Mail::to('info.gretabrat@gmail.com')->send(new Contact($name, $surname, $email, $messages));
+            } else {
+                Mail::to('paskanass@gmail.com')->send(new Contact($name, $surname, $email, $messages));
+            }
             return response()->json([
                 'status' => 200
             ]);
         };
-        dump($validator->messages());
-        return 'labas';
-
-        $name = $request->name;
-        $surname = $request->surname;
-        $email = $request->email;
-        $messages = $request->message;
-        Mail::to('paskanass@gmail.com')->send(new Contact($name, $surname, $email, $messages));
     }
 }
