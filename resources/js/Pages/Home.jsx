@@ -22,7 +22,10 @@ export default function Home(props) {
         <div>
             <Head title="Home" />
             <Header />
-            <Gallery portfolioImages={props.portfolioImages} />
+            <Gallery
+                portfolioImages={props.portfolioImages}
+                maxOrderNum={props.maxOrderNum}
+            />
             <div className="quote">
                 <p className="text1">
                     I found I could say things with color and shapes that I

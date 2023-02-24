@@ -25,10 +25,13 @@ class PortfolioImageController extends Controller
     public function index(Image $image, ImageManager $imageManager)
     {
         $portfolioImages = PortfolioImage::orderBy('order')->get();
+        $maxOrderNum = PortfolioImage::select()->max('order');
 
         foreach ($portfolioImages as $key => $content) {
             $extension = $image->getExtension($content->photo_path);
-
+            if ($content->order === $maxOrderNum) {
+                $maxOrderIndex = $key;
+            }
             if ($extension === 'jpg') {
                 $width = $imageManager->make($image->getAssetPath($content->photo_path, $this->directory))->width();
                 $height = $imageManager->make($image->getAssetPath($content->photo_path, $this->directory))->height();
@@ -41,16 +44,22 @@ class PortfolioImageController extends Controller
                 $portfolioImages[$key]['isVideo'] = true;
             }
         }
-        return view('portfolioImage.index', ['portfolioImages' => $portfolioImages]);
+
+        return view('portfolioImage.index', ['portfolioImages' => $portfolioImages, 'maxOrder' => [$maxOrderNum, $maxOrderIndex]]);
     }
 
     public function home(Image $image)
     {
         $portfolioImages = PortfolioImage::where('order', '>', 0)->get();
+        $maxOrderNum = PortfolioImage::max('order');
+
+        if ($maxOrderNum % 2 === 1) {
+            $maxOrderNum -= 1;
+        }
         foreach ($portfolioImages as $key => $content) {
             $portfolioImages[$key]['extension'] = $image->getExtension($content->photo_path);
         }
-        return Inertia::render('Home', ['portfolioImages' => $portfolioImages]);
+        return Inertia::render('Home', ['portfolioImages' => $portfolioImages, 'maxOrderNum' => $maxOrderNum]);
     }
 
     /**
