@@ -1,5 +1,4 @@
 import React, { useDeferredValue, useEffect, useState } from "react";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
 import "./gallery.css";
 
 import ContentModal from "../Modals/ContentModal";
@@ -9,13 +8,50 @@ const Gallery = (props) => {
     const [modal, setModal] = useState(false);
     const [tempImgSrc, setTempImgSrc] = useState("");
     const [modalExtension, setModalExtension] = useState("");
+    const [width, setWidth] = useState(window.innerWidth);
+    const [contentCols, setContentCols] = useState(1);
+
+    const updateWidth = () => {
+        setWidth(window.innerWidth);
+    };
+
+    useEffect(() => {
+        window.addEventListener("resize", updateWidth);
+        return () => window.removeEventListener("resize", updateWidth);
+    });
+
+    useEffect(() => {
+        if (width > 1024) {
+            setContentCols(2);
+        }
+    }, [width]);
+
+    const isOneCol = () => {
+        return contentCols === 1;
+    };
+
     const handleClick = (imgSrc, extension) => {
         setTempImgSrc(imgSrc);
         setModal(true);
         setModalExtension(extension);
     };
 
-    const isRowBased = useMediaQuery("(min-width: 1024px)");
+    const imageTableSize = (maxOrder) => {
+        const rowsCount =
+            ((maxOrder % 2 === 0 ? maxOrder : maxOrder - 1) / 2) * 5 + 1;
+
+        if ((width - (width % 1024)) / 1024 + 1 != contentCols) {
+            setContentCols((width - (width % 1024)) / 1024 + 1);
+        }
+        return {
+            container: () => ({
+                gridTemplateRows: `repeat(${
+                    isOneCol() ? rowsCount * 2 : rowsCount
+                },${isOneCol() ? "100px" : 10 - (contentCols - 1) + "vw"})`,
+                gridTemplateColumns: `repeat(${isOneCol() ? 1 : 2}, 1fr)`,
+            }),
+        };
+    };
 
     const colStart = (order) => {
         const gallery1ColumnStart = 1;
@@ -66,12 +102,18 @@ const Gallery = (props) => {
         }
 
         return {
-            container: () => ({
-                gridColumnStart: lColumnStart,
-                gridColumnEnd: lColumnEnd,
-                gridRowStart: lRowStart,
-                gridRowEnd: lRowEnd,
-            }),
+            container: () =>
+                isOneCol()
+                    ? {
+                          height: `${100 / props.maxOrderNum}%`,
+                          width: "auto",
+                      }
+                    : {
+                          gridColumnStart: lColumnStart,
+                          gridColumnEnd: lColumnEnd,
+                          gridRowStart: lRowStart,
+                          gridRowEnd: lRowEnd,
+                      },
         };
     };
 
@@ -88,55 +130,56 @@ const Gallery = (props) => {
             }
 
             <div className="flex flex-col items-center mt-1 w-full">
-                <div className="flex lg:max-w-screen-xl ">
-                    <div className="gallery">
+                <div className="flex lg:max-w-screen-xl xl:max-w-screen-xl 2xl:max-w-screen-2xl ">
+                    <div
+                        className="gallery"
+                        style={imageTableSize(props.maxOrderNum).container()}
+                    >
                         {props.portfolioImages
                             .sort((a, b) => a.order - b.order)
                             .map((item, index) => {
-                                return (
-                                    <figure
-                                        key={item.order}
-                                        className={` ease-in-out duration-300 gallery__item`}
-                                        style={
-                                            isRowBased
-                                                ? colStart(
-                                                      item.order
-                                                  ).container()
-                                                : null
-                                        }
-                                    >
-                                        {isImage(item.extension) ? (
-                                            <img
-                                                className="gallery__img"
-                                                src={item.photo_path}
-                                                onClick={() => {
-                                                    handleClick(
-                                                        item.photo_path,
-                                                        item.extension
-                                                    );
-                                                }}
-                                            />
-                                        ) : isVideo(item.extension) ? (
-                                            <video
-                                                loop
-                                                autoPlay
-                                                muted
-                                                className="gallery__img"
-                                                onClick={() => {
-                                                    handleClick(
-                                                        item.photo_path,
-                                                        item.extension
-                                                    );
-                                                }}
-                                            >
-                                                <source
+                                if (props.maxOrderNum >= item.order) {
+                                    return (
+                                        <figure
+                                            key={item.order}
+                                            className={` ease-in-out duration-300 gallery__item`}
+                                            style={colStart(
+                                                item.order
+                                            ).container()}
+                                        >
+                                            {isImage(item.extension) ? (
+                                                <img
+                                                    className="gallery__img"
                                                     src={item.photo_path}
-                                                    type="video/mp4"
+                                                    onClick={() => {
+                                                        handleClick(
+                                                            item.photo_path,
+                                                            item.extension
+                                                        );
+                                                    }}
                                                 />
-                                            </video>
-                                        ) : null}
-                                    </figure>
-                                );
+                                            ) : isVideo(item.extension) ? (
+                                                <video
+                                                    loop
+                                                    autoPlay
+                                                    muted
+                                                    className="gallery__img"
+                                                    onClick={() => {
+                                                        handleClick(
+                                                            item.photo_path,
+                                                            item.extension
+                                                        );
+                                                    }}
+                                                >
+                                                    <source
+                                                        src={item.photo_path}
+                                                        type="video/mp4"
+                                                    />
+                                                </video>
+                                            ) : null}
+                                        </figure>
+                                    );
+                                }
                             })}
                     </div>
                 </div>
