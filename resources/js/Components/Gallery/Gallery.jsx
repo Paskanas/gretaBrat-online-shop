@@ -149,6 +149,7 @@ const Gallery = (props) => {
                                         >
                                             {isImage(item.extension) ? (
                                                 <img
+                                                    fetchpriority="high"
                                                     className="gallery__img"
                                                     src={item.photo_path}
                                                     onClick={() => {
