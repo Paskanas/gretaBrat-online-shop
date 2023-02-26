@@ -153,6 +153,7 @@ const Gallery = (props) => {
                         className="gallery"
                         style={imageTableSize(props.maxOrderNum).container()}
                     >
+
                         {props.portfolioImages.map((item, index) => {
                             if (props.maxOrderNum >= item.order) {
                                 return (
@@ -164,6 +165,7 @@ const Gallery = (props) => {
                                         {isImage(item.extension) ? (
                                             <img
                                                 className="gallery__img"
+                                                fetchpriority="high"
                                                 src={item.photo_path}
                                                 alt={item.title}
                                                 onClick={() => {

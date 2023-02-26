@@ -14,17 +14,23 @@ class Image extends Model
         $name = pathinfo($imagePath, PATHINFO_FILENAME);
         $ext = pathinfo($imagePath, PATHINFO_EXTENSION);
         if ($all) {
-            $path = asset("/storage/images/$directoryName") . '/' . $name . '.' . $ext;
+            $path = asset("/storage/images/$directoryName/")  . $name . '.' . $ext;
+            $pathOrginal = asset("/storage/images/$directoryName/orginal/")  . $name . '.' . $ext;
         } else {
             if (App::environment('production')) {
                 $path = getcwd() . "/storage/images/$directoryName/" . $name . '.' . $ext;
+                $pathOrginal = getcwd() . "/storage/images/$directoryName/orginal/" . $name . '.' . $ext;
             } else {
-                $path = public_path("/storage/images/$directoryName") . '/' . $name . '.' . $ext;
+                $path = public_path("/storage/images/$directoryName/")  . $name . '.' . $ext;
+                $pathOrginal = public_path("/storage/images/$directoryName/orginal/") . $name . '.' . $ext;
             }
         }
 
         if (file_exists($path)) {
             unlink($path);
+        }
+        if (file_exists($pathOrginal)) {
+            unlink($pathOrginal);
         }
     }
 
@@ -38,9 +44,13 @@ class Image extends Model
         }
 
         if (App::environment('production')) {
-            $image->move(getcwd() . "/storage/images/$directoryName", $file);
+            $image->move(getcwd() . "/storage/images/$directoryName/orginal", $file);
+            $gdImage = imagecreatefromjpeg(getcwd() . "/storage/images/$directoryName/orginal" . "/" . $file);
+            imagejpeg($gdImage, getcwd() . "/storage/images/$directoryName" . '/' . $file, 90);
         } else {
-            $image->move(public_path() . "/storage/images/$directoryName", $file);
+            $image->move(public_path() . "/storage/images/$directoryName/orginal", $file);
+            $gdImage = imagecreatefromjpeg(public_path() . "/storage/images/$directoryName/orginal" . "/" . $file);
+            imagejpeg($gdImage, public_path() . "/storage/images/$directoryName" . '/' . $file, 90);
         }
 
         return asset("/storage/images/$directoryName") . '/' . $file;
@@ -59,7 +69,18 @@ class Image extends Model
         if (App::environment('production')) {
             $path = getcwd() . "/storage/images/$directoryName/" . $name . '.' . $ext;
         } else {
-            $path = public_path("/storage/images/$directoryName") . '/' . $name . '.' . $ext;
+            $path = public_path("/storage/images/$directoryName/") . $name . '.' . $ext;
+        }
+        return $path;
+    }
+    public function getOrginalAssetPath($imagePath, $directoryName)
+    {
+        $name = pathinfo($imagePath, PATHINFO_FILENAME);
+        $ext = pathinfo($imagePath, PATHINFO_EXTENSION);
+        if (App::environment('production')) {
+            $path = getcwd() . "/storage/images/$directoryName/orginal/" . $name . '.' . $ext;
+        } else {
+            $path = public_path("/storage/images/$directoryName/orginal/") . $name . '.' . $ext;
         }
         return $path;
     }
