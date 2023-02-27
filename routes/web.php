@@ -4,6 +4,7 @@ use App\Http\Controllers\ArtController;
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\PortfolioImageController as PortfolioImage;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -65,5 +66,17 @@ Route::prefix('portfolioImages-admin')->name('portfolioImages-')->group(function
         ->middleware('roleControl:admin');
     Route::delete('delete-picture/{portfolioImage}', [PortfolioImage::class, 'deletePicture'])->name('delete-picture');
 });
+
+//artisan optimize
+Route::get('/clear-optimize', function () {
+    $exitCode = Artisan::call('optimize:clear');
+    return $exitCode;
+})->middleware('roleControl:admin');
+
+//artisan clear cache
+Route::get('/optimize', function () {
+    $exitCode = Artisan::call('optimize');
+    return $exitCode;
+})->middleware('roleControl:admin');
 
 require __DIR__ . '/auth.php';
