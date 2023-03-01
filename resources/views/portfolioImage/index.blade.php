@@ -68,12 +68,12 @@
                   <p name='title'>{{$portfolioImage->title}}</p>
                   <label class="fw-bold" for="order">Order number:</label>
                   <p name='order'>{{$portfolioImage->order}}</p>
-                  {{-- @if($portfolioImage->isImage) --}}
+                  @if($portfolioImage->imageDimentions)
                   <label class="fw-bold" for="order">Width:</label>
                   <p name='order'>{{$portfolioImage->imageDimentions[0]}}px</p>
                   <label class="fw-bold" for="order">Length:</label>
                   <p name='order'>{{$portfolioImage->imageDimentions[1]}}px</p>
-                  {{-- @endif --}}
+                  @endif
                 </div>
                 <div class="col-4 d-flex flex-column align-items-center justify-content-center">
                   @if($portfolioImage->photo_path)
@@ -84,7 +84,7 @@
                     @elseif ($portfolioImage->isVideo)
                     <label class="fw-bold">Video:</label>
                     <video controls loop muted class="rounded w-100 h-100">
-                      <source src="{{$portfolioImage->photo_path}}" type="video/mp4" />
+                      <source src="{{$portfolioImage->photo_path}}" />
                       Your browser does not support the video tag.
                     </video>
                     @endif

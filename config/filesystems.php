@@ -39,6 +39,35 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
+            'url' => env('APP_URL') . '/storage/images',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+        'portfolio-video' => [
+            'driver' => 'local',
+            'root' => public_path('storage/images/portfolio'),
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+        'prod-portfolio-video' => [
+            'driver' => 'local',
+            'root' => getcwd() . 'storage/images/portfolio',
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'portfolio-orginal-video' => [
+            'driver' => 'local',
+            'root' => public_path('storage/images/portfolio/orginal'),
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+        'prod-portfolio-orginal-video' => [
+            'driver' => 'local',
+            'root' => getcwd() . 'storage/images/portfolio/orginal',
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
@@ -71,6 +100,8 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        // gali neveikti hoste
+        // public_path('portfolio-videos') => storage_path('app/content/portfolio'),
     ],
 
 ];

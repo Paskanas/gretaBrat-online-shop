@@ -62,11 +62,9 @@
                 <a class="dropdown-item" href="{{route('arts-index')}}">
                   Artworks List
                 </a>
-                {{-- @if(Auth::user()->role >9) --}}
                 <a class="dropdown-item" href="{{route('arts-create')}}">
                   New artwork
                 </a>
-                {{-- @endif --}}
               </div>
             </li>
             <li class="nav-item dropdown">
@@ -77,55 +75,39 @@
                 <a class="dropdown-item" href="{{route('portfolioImages-index')}}">
                   Portfolio Images List
                 </a>
-                {{-- @if(Auth::user()->role >9) --}}
                 <a class="dropdown-item" href="{{route('portfolioImages-create')}}">
                   New portfolio image
                 </a>
-                {{-- @endif --}}
               </div>
             </li>
-            {{-- <li class="nav-item dropdown">
+
+            <li class="nav-item dropdown">
               <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                Dishes
+                {{ Auth::user()->name }}
               </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{route('dishes-index')}}">
-            Dishes List
-            </a>
-            @if(Auth::user()->role >9)
-            <a class="dropdown-item" href="{{route('dishes-create')}}">
-              New Dish
-            </a>
-            @endif
-        </div>
-        </li> --}}
-        <li class="nav-item dropdown">
-          <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-            {{ Auth::user()->name }}
-          </a>
 
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-              {{ __('Logout') }}
-            </a>
+                  {{ __('Logout') }}
+                </a>
 
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-              @csrf
-            </form>
-          </div>
-        </li>
-        @endguest
-        </ul>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                  @csrf
+                </form>
+              </div>
+            </li>
+            @endguest
+          </ul>
+        </div>
       </div>
-  </div>
-  </nav>
+    </nav>
 
-  <main class="py-4">
-    {{-- my comment --}}
-    {{-- @include('msg.main') --}}
-    @yield('content')
-  </main>
+    <main class="py-4">
+      {{-- my comment --}}
+      {{-- @include('msg.main') --}}
+      @yield('content')
+    </main>
   </div>
 </body>
 </html>

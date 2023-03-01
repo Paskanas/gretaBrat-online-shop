@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\PortfolioImage;
 use App\Http\Requests\StorePortfolioImageRequest;
 use App\Http\Requests\UpdatePortfolioImageRequest;
+use App\Jobs\CompressVideo;
+use App\Jobs\CreateThumbnailFromVideo;
 use App\Models\Image;
 use getID3;
 use Inertia\Inertia;
@@ -40,7 +42,9 @@ class PortfolioImageController extends Controller
             } else if ($extension === 'mp4') {
                 $getID3 = new getID3;
                 $file = $getID3->analyze($image->getAssetPath($portfolioImages[$key]->photo_path, $this->directory));
-                $portfolioImages[$key]['imageDimentions'] = [$file['video']['resolution_x'], $file['video']['resolution_y']];
+                if ($file && array_key_exists('video', $file)) {
+                    $portfolioImages[$key]['imageDimentions'] = [$file['video']['resolution_x'], $file['video']['resolution_y']];
+                }
                 $portfolioImages[$key]['isVideo'] = true;
             }
         }
@@ -97,6 +101,9 @@ class PortfolioImageController extends Controller
         }
 
         $portfolioImage->save();
+
+        CreateThumbnailFromVideo::dispatch($portfolioImage);
+        CompressVideo::dispatch($portfolioImage);
         return redirect()->route('portfolioImages-index');
     }
 
