@@ -52,7 +52,7 @@ return [
         ],
         'prod-portfolio-video' => [
             'driver' => 'local',
-            'root' => getcwd() . 'storage/images/portfolio',
+            'root' => getcwd() . '/storage/images/portfolio',
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
@@ -67,7 +67,7 @@ return [
         ],
         'prod-portfolio-orginal-video' => [
             'driver' => 'local',
-            'root' => getcwd() . 'storage/images/portfolio/orginal',
+            'root' => getcwd() . '/storage/images/portfolio/orginal',
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
             'throw' => false,
