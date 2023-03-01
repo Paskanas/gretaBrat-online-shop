@@ -55,12 +55,12 @@ class Image extends Model
         }
 
         if (App::environment('production')) {
-            $content->move(getcwd() . "/storage/images/$directoryName/orginal", $file);
             if ($ext === 'jpg') {
+                $content->move(getcwd() . "/storage/images/$directoryName/orginal", $file);
                 $gdImage = imagecreatefromjpeg(getcwd() . "/storage/images/$directoryName/orginal" . "/" . $file);
                 imagejpeg($gdImage, getcwd() . "/storage/images/$directoryName" . '/' . $file, 90);
             } else if ($ext === 'mp4') {
-                Storage::copy(getcwd() . "/storage/images/$directoryName/orginal/$file", getcwd() . "/storage/images/$directoryName/$file");
+                $content->move(getcwd() . "/storage/images/$directoryName/orginal", $file);
             }
         } else {
             $content->move(public_path() . "/storage/images/$directoryName/orginal", $file);
@@ -68,7 +68,6 @@ class Image extends Model
                 $gdImage = imagecreatefromjpeg(public_path() . "/storage/images/$directoryName/orginal" . "/" . $file);
                 imagejpeg($gdImage, public_path() . "/storage/images/$directoryName" . '/' . $file, 90);
             } else if ($ext === 'mp4') {
-                Storage::copy(public_path() . "/storage/images/$directoryName/orginal/$file", public_path() . "/storage/images/$directoryName/$file");
             }
         }
 
