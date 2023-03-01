@@ -9,6 +9,7 @@ use App\Jobs\CompressVideo;
 use App\Jobs\CreateThumbnailFromVideo;
 use App\Models\Image;
 use getID3;
+use Illuminate\Support\Facades\App;
 use Inertia\Inertia;
 
 
@@ -101,9 +102,10 @@ class PortfolioImageController extends Controller
         }
 
         $portfolioImage->save();
-
-        CreateThumbnailFromVideo::dispatch($portfolioImage);
-        CompressVideo::dispatch($portfolioImage);
+        if (App::environment('local')) {
+            CreateThumbnailFromVideo::dispatch($portfolioImage);
+            CompressVideo::dispatch($portfolioImage);
+        }
         return redirect()->route('portfolioImages-index');
     }
 

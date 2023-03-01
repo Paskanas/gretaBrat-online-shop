@@ -8,6 +8,7 @@ use FFMpeg\FFMpeg;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 
 class Image extends Model
 {
@@ -67,7 +68,7 @@ class Image extends Model
                 $gdImage = imagecreatefromjpeg(public_path() . "/storage/images/$directoryName/orginal" . "/" . $file);
                 imagejpeg($gdImage, public_path() . "/storage/images/$directoryName" . '/' . $file, 90);
             } else if ($ext === 'mp4') {
-                null;
+                Storage::copy(getcwd() . "/storage/images/$directoryName/orginal/$file", getcwd() . "/storage/images/$directoryName/$file");
             }
         }
 
