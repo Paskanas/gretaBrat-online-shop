@@ -60,7 +60,7 @@ class Image extends Model
                 $gdImage = imagecreatefromjpeg(getcwd() . "/storage/images/$directoryName/orginal" . "/" . $file);
                 imagejpeg($gdImage, getcwd() . "/storage/images/$directoryName" . '/' . $file, 90);
             } else if ($ext === 'mp4') {
-                $content->move(getcwd() . "/storage/images/$directoryName/orginal", $file);
+                $content->move(getcwd() . "/storage/images/$directoryName", $file);
             }
         } else {
             $content->move(public_path() . "/storage/images/$directoryName/orginal", $file);
