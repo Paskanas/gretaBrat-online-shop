@@ -15,10 +15,15 @@ class AchievementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function indexJs()
     {
         $achievements = Achievement::all();
         return Inertia::render('AboutMe', ['achievements' => $achievements]);
+    }
+    public function index()
+    {
+        $achievements = Achievement::all();
+        return view('achievements.index', ['achievements' => $achievements]);
     }
 
     /**
@@ -28,7 +33,7 @@ class AchievementController extends Controller
      */
     public function create()
     {
-        //
+        return view('achievements.create');
     }
 
     /**
@@ -37,32 +42,16 @@ class AchievementController extends Controller
      * @param  \App\Http\Requests\StoreAchievementRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAchievementRequest $request)
     {
-        //
+        $achievement = new Achievement;
+        $achievement->achievement = $request->achievement;
+
+        $achievement->save();
+
+        return redirect()->route('achievements-index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Achievement  $achievement
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Achievement $achievement)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Achievement  $achievement
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Achievement $achievement)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -71,9 +60,12 @@ class AchievementController extends Controller
      * @param  \App\Models\Achievement  $achievement
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Achievement $achievement)
+    public function update(UpdateAchievementRequest $request, Achievement $achievement)
     {
-        //
+        $achievement->achievement = $request->achievement;
+
+        $achievement->save();
+        return redirect()->route('achievements-index');
     }
 
     /**
@@ -84,6 +76,7 @@ class AchievementController extends Controller
      */
     public function destroy(Achievement $achievement)
     {
-        //
+        $achievement->delete();
+        return redirect()->route('achievements-index');
     }
 }

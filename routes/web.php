@@ -21,7 +21,7 @@ use Inertia\Inertia;
 
 Route::get('/', [PortfolioImage::class, 'home'])->name('home');
 
-Route::get('/about-me', [AchievementController::class, 'index'])->name('about-me');
+Route::get('/about-me', [AchievementController::class, 'indexJs'])->name('about-me');
 
 Route::get('/contact', function () {
     return Inertia::render('Contact');
@@ -65,6 +65,19 @@ Route::prefix('portfolioImages-admin')->name('portfolioImages-')->group(function
     Route::get('show/{id}', [PortfolioImage::class, 'show'])->name('show')
         ->middleware('roleControl:admin');
     Route::delete('delete-picture/{portfolioImage}', [PortfolioImage::class, 'deletePicture'])->name('delete-picture');
+});
+// Achievements
+Route::prefix('achievements-admin')->name('achievements-')->group(function () {
+    Route::get('', [AchievementController::class, 'index'])->name('index')
+        ->middleware('roleControl:admin');
+    Route::get('create', [AchievementController::class, 'create'])->name('create')
+        ->middleware('roleControl:admin');
+    Route::post('', [AchievementController::class, 'store'])->name('store')
+        ->middleware('roleControl:admin');
+    Route::put('{achievement}', [AchievementController::class, 'update'])->name('update')
+        ->middleware('roleControl:admin');
+    Route::delete('{achievement}', [AchievementController::class, 'destroy'])->name('delete')
+        ->middleware('roleControl:admin');
 });
 
 //artisan optimize
