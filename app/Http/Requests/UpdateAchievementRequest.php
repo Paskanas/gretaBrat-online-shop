@@ -13,7 +13,7 @@ class UpdateAchievementRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true; //changed becauce of authorisation when creating
     }
 
     /**
