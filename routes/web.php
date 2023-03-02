@@ -3,8 +3,8 @@
 use App\Http\Controllers\ArtController;
 use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\EmailController;
+use App\Http\Controllers\OptimizeController;
 use App\Http\Controllers\PortfolioImageController as PortfolioImage;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -81,15 +81,9 @@ Route::prefix('achievements-admin')->name('achievements-')->group(function () {
 });
 
 //artisan optimize
-Route::get('/clear-optimize', function () {
-    $exitCode = Artisan::call('optimize:clear');
-    return $exitCode;
-})->middleware('roleControl:admin');
+Route::get('/clear-optimize', [OptimizeController::class, 'clearOptimize'])->name('clear')->middleware('roleControl:admin');
 
 //artisan clear cache
-Route::get('/optimize', function () {
-    $exitCode = Artisan::call('optimize');
-    return $exitCode;
-})->middleware('roleControl:admin');
+Route::get('/optimize', [OptimizeController::class, 'optimize'])->name('optimize')->middleware('roleControl:admin');
 
 require __DIR__ . '/auth.php';
