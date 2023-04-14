@@ -1,4 +1,3 @@
-import { Head } from "@inertiajs/inertia-react";
 import Footer from "@/Components/Footer";
 import Gallery from "@/Components/Gallery/Gallery";
 import Header from "@/Components/Header";
@@ -6,7 +5,6 @@ import Header from "@/Components/Header";
 export default function Home(props) {
     return (
         <div>
-            <Head title="Home" />
             <Header />
             <Gallery
                 portfolioImages={props.portfolioImages}

@@ -153,8 +153,7 @@ const Gallery = (props) => {
                         className="gallery"
                         style={imageTableSize(props.maxOrderNum).container()}
                     >
-
-                        {props.portfolioImages.map((item, index) => {
+                        {props.portfolioImages.map((item) => {
                             if (props.maxOrderNum >= item.order) {
                                 return (
                                     <figure

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/inertia-react";
 import About from "../Components/AboutMe/About";
 import Achievements from "@/Components/AboutMe/Achievements";

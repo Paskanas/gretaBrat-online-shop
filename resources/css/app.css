@@ -46,6 +46,12 @@
     font-weight: 500;
     font-size: 30px;
 }
+.h1-color.home {
+    font-weight: 500;
+    font-size: 24px;
+    width: 100%;
+}
+
 .h2-color {
     color: var(--defaultColor);
     text-transform: uppercase;
@@ -99,10 +105,20 @@
     }
 }
 
+@media (min-width: 500px) {
+    .h1-color.home {
+        width: 75%;
+    }
+}
+
 @media (min-width: 640px) {
     .h1-color {
         font-size: 36px;
         line-height: 36px;
+    }
+    .h1-color.home {
+        font-size: 28px;
+        line-height: 28px;
     }
     .h2-color {
         font-size: 36px;
@@ -117,6 +133,10 @@
     .h1-color {
         font-size: 40px;
         line-height: 40px;
+    }
+    .h1-color.home {
+        font-size: 36px;
+        line-height: 36px;
     }
     .h2-color {
         font-size: 40px;
