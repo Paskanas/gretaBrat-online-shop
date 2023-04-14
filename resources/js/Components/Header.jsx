@@ -8,18 +8,26 @@ const Header = () => {
         useState(false);
 
     const pagePath = window.location.pathname;
-    const page0 = "/";
-    const page1 = "/about-me";
-    const page2 = "/contact";
+    const homePage = "/";
+    const aboutPage = "/about-me";
+    const contactPage = "/contact";
 
     return (
         <div>
             <nav className="bg-white border-b border-gray-100 py-2 mb-3 sm:hidden ">
                 <div className="-mr-2 flex  items-center justify-between w-full px-4 ">
                     <div className="flex">
-                        <Link href="/">
-                            <ApplicationLogo className="block h-9 w-auto text-black" />
-                        </Link>
+                        {pagePath === homePage ? (
+                            <h1 itemScope>
+                                <a href={route("home")}>
+                                    <ApplicationLogo className="block h-9 w-auto text-black" />
+                                </a>
+                            </h1>
+                        ) : (
+                            <a href={route("home")}>
+                                <ApplicationLogo className="block h-9 w-auto text-black" />
+                            </a>
+                        )}
                     </div>
                     <button
                         onClick={() =>
@@ -90,15 +98,23 @@ const Header = () => {
             </nav>
             <div className="hidden sm:block sm:items-center sm:ml-6">
                 <div className="flex justify-center mt-3">
-                    <Link href="/">
-                        <ApplicationLogo className="block h-9 w-auto text-black" />
-                    </Link>
+                    {pagePath === homePage ? (
+                        <h1 itemScope>
+                            <a href={route("home")}>
+                                <ApplicationLogo className="block h-9 w-auto text-black" />
+                            </a>
+                        </h1>
+                    ) : (
+                        <a href={route("home")}>
+                            <ApplicationLogo className="block h-9 w-auto text-black" />
+                        </a>
+                    )}
                 </div>
                 <div className="flex justify-center gap-14 mt-5 mb-4">
-                    <a href="/">
+                    <a href={route("home")}>
                         <h2
                             className={`${
-                                pagePath === page0
+                                pagePath === homePage
                                     ? "underline"
                                     : "hover:underline"
                             }  decoration-1 decoration decoration-inherit underline-offset-8 header-h2`}
@@ -106,10 +122,10 @@ const Header = () => {
                             Portfolio
                         </h2>
                     </a>
-                    <a href="/about-me">
+                    <a href={route("about-me")}>
                         <h2
                             className={`${
-                                pagePath === page1
+                                pagePath === aboutPage
                                     ? "underline"
                                     : "hover:underline"
                             } decoration-1 decoration decoration-inherit underline-offset-8 header-h2`}
@@ -117,10 +133,10 @@ const Header = () => {
                             About
                         </h2>
                     </a>
-                    <a href="/contact">
+                    <a href={route("contact")}>
                         <h2
                             className={`${
-                                pagePath === page2
+                                pagePath === contactPage
                                     ? "underline"
                                     : "hover:underline"
                             } decoration-1 decoration decoration-inherit underline-offset-8 header-h2`}

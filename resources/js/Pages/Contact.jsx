@@ -9,21 +9,9 @@ import EmailForm from "@/Components/Contacts/EmailForm";
 import MessageModal from "@/Components/Modals/MessageModal";
 
 export default function Contact(props) {
-    // const [cartItems, setCartItems] = useState(
-    //     JSON.parse(localStorage.getItem("products")) ?? []
-    // );
     const [modal, setModal] = useState(false);
     const [modalMessage, setModalMessage] = useState([]);
     const [loading, setLoading] = useState(false);
-
-    // useEffect(() => {
-    //     localStorage.setItem("products", JSON.stringify(cartItems));
-    // }, [cartItems]);
-
-    // useEffect(() => {
-    //     const items = JSON.parse(localStorage.getItem("products"));
-    //     setCartItems(items);
-    // }, []);
 
     return (
         <>

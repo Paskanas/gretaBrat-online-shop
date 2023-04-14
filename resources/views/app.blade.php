@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Experience the magic of dreamy art and indulge in the captivating visuals of digital 3D artist's Greta Brat portfolio" />
 
-  <title inertia>{{ config('app.name', 'Laravel') }}</title>
+  <title inertia>{{ config('app.name', 'Greta Brat') }}</title>
 
   <!-- Fonts -->
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
