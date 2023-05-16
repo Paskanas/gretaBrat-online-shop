@@ -29,7 +29,6 @@ export default function AboutMe(props) {
                 photoAlt="Person photo"
             />
             <Achievements
-                achievements={props.achievements}
                 photoPath="./images/achievementPhoto.png"
                 photoAlt="Achievement photo"
             />

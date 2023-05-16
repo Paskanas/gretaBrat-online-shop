@@ -33,6 +33,16 @@ export const getHomePageData = async () => {
     }
 };
 
+export const getAchievements = async () => {
+    try {
+        const response = await axios.get("/api/achievements");
+        return response.data;
+    } catch (e) {
+        console.error(e);
+        throw error;
+    }
+};
+
 export const loginUser = async (email, password, remember) => {
     try {
         const response = await axios.post("/login", {
