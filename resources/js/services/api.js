@@ -32,3 +32,17 @@ export const getHomePageData = async () => {
         throw error;
     }
 };
+
+export const loginUser = async (email, password, remember) => {
+    try {
+        const response = await axios.post("/login", {
+            email,
+            password,
+            remember,
+        });
+        localStorage.setItem("access_token", response.data.access_token);
+        window.location.href = "/portfolioImages-admin";
+    } catch (error) {
+        console.error(error);
+    }
+};

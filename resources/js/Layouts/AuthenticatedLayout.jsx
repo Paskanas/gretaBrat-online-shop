@@ -13,6 +13,10 @@ export default function Authenticated({ auth, header, children, cartItems }) {
         return accumuliator + object.count;
     }, 0);
 
+    const handleLogout = () => {
+        localStorage.removeItem("access_token");
+    };
+
     return (
         <div className="min-h-screen bg-white">
             <nav className="bg-white border-b border-gray-100">
@@ -100,6 +104,7 @@ export default function Authenticated({ auth, header, children, cartItems }) {
                                                 href={route("logout")}
                                                 method="post"
                                                 as="button"
+                                                onClick={handleLogout}
                                             >
                                                 Log Out
                                             </Dropdown.Link>
@@ -219,6 +224,7 @@ export default function Authenticated({ auth, header, children, cartItems }) {
                                     method="post"
                                     href={route("logout")}
                                     as="button"
+                                    onClick={handleLogout}
                                 >
                                     Log Out
                                 </ResponsiveNavLink>
