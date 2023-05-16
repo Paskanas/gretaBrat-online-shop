@@ -53,7 +53,7 @@ class PortfolioImageController extends Controller
         return view('portfolioImage.index', ['portfolioImages' => $portfolioImages, 'maxOrder' => [$maxOrderNum, $maxOrderIndex]]);
     }
 
-    public function home(Image $image)
+    public function home()
     {
         return Inertia::render('Home');
     }
