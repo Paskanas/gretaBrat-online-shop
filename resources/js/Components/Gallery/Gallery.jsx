@@ -3,8 +3,9 @@ import "./gallery.css";
 
 import ContentModal from "../Modals/ContentModal";
 import { isImage, isVideo } from "@/Utils/File";
+import { getHomePageData } from "@/services/api";
 
-const Gallery = (props) => {
+const Gallery = () => {
     const [modal, setModal] = useState(false);
     const [tempImgSrc, setTempImgSrc] = useState("");
     const [modalExtension, setModalExtension] = useState("");
@@ -12,12 +13,28 @@ const Gallery = (props) => {
     const [contentCols, setContentCols] = useState(
         (width - (width % 1024)) / 1024 + 1
     );
+    const [portfolioImages, setPortfolioImages] = useState([]);
+    const [maxOrderNum, setMaxOrderNum] = useState(0);
     const contentBlockOfContent = 4;
     const updateWidth = () => {
         if (window.innerWidth != width) {
             setWidth(window.innerWidth);
         }
     };
+
+    useEffect(() => {
+        const fetchPortfolioImages = async () => {
+            try {
+                const homePageDataFromApi = await getHomePageData();
+                console.log(homePageDataFromApi);
+                setPortfolioImages(homePageDataFromApi.portfolioImages);
+                setMaxOrderNum(homePageDataFromApi.maxOrderNum);
+            } catch (e) {
+                console.error(e);
+            }
+        };
+        fetchPortfolioImages();
+    }, [setPortfolioImages, setMaxOrderNum]);
 
     useEffect(() => {
         window.addEventListener("resize", updateWidth);
@@ -57,7 +74,7 @@ const Gallery = (props) => {
     };
 
     const contentMod4 = () => {
-        let lastItem = props.maxOrderNum;
+        let lastItem = maxOrderNum;
         if (lastItem % contentBlockOfContent > 0) {
             lastItem = lastItem % 2 === 1 ? (lastItem - 1) / 2 : lastItem / 2;
         }
@@ -78,7 +95,7 @@ const Gallery = (props) => {
         const lColumnEnd =
             order % 2 === 1 ? gallery1ColumnEnd : gallery2ColumnEnd;
         let loopTimes = 0;
-        if (order <= props.maxOrderNum) {
+        if (order <= maxOrderNum) {
             loopTimes = order % 2 === 1 ? (order + 1) / 2 : order / 2;
         }
         for (let i = 1; i <= loopTimes; i++) {
@@ -123,7 +140,7 @@ const Gallery = (props) => {
             container: () =>
                 isOneCol()
                     ? {
-                          height: `${100 / props.maxOrderNum}%`,
+                          height: `${100 / maxOrderNum}%`,
                           width: "auto",
                       }
                     : {
@@ -151,52 +168,55 @@ const Gallery = (props) => {
                 <div className="flex lg:max-w-screen-xl xl:max-w-screen-xl 2xl:max-w-screen-2xl ">
                     <div
                         className="gallery"
-                        style={imageTableSize(props.maxOrderNum).container()}
+                        style={imageTableSize(maxOrderNum).container()}
                     >
-                        {props.portfolioImages.map((item) => {
-                            if (props.maxOrderNum >= item.order) {
-                                return (
-                                    <figure
-                                        key={item.order}
-                                        className={` ease-in-out duration-300 gallery__item`}
-                                        style={colStart(item.order).container()}
-                                    >
-                                        {isImage(item.extension) ? (
-                                            <img
-                                                className="gallery__img"
-                                                fetchpriority="high"
-                                                src={item.photo_path}
-                                                alt={item.title}
-                                                onClick={() => {
-                                                    handleClick(
-                                                        item.photo_path,
-                                                        item.extension
-                                                    );
-                                                }}
-                                            />
-                                        ) : isVideo(item.extension) ? (
-                                            <video
-                                                loop
-                                                autoPlay
-                                                muted
-                                                className="gallery__img"
-                                                onClick={() => {
-                                                    handleClick(
-                                                        item.photo_path,
-                                                        item.extension
-                                                    );
-                                                }}
-                                            >
-                                                <source
+                        {portfolioImages &&
+                            portfolioImages.map((item) => {
+                                if (maxOrderNum >= item.order) {
+                                    return (
+                                        <figure
+                                            key={item.order}
+                                            className={` ease-in-out duration-300 gallery__item`}
+                                            style={colStart(
+                                                item.order
+                                            ).container()}
+                                        >
+                                            {isImage(item.extension) ? (
+                                                <img
+                                                    className="gallery__img"
+                                                    fetchpriority="high"
                                                     src={item.photo_path}
-                                                    type="video/mp4"
+                                                    alt={item.title}
+                                                    onClick={() => {
+                                                        handleClick(
+                                                            item.photo_path,
+                                                            item.extension
+                                                        );
+                                                    }}
                                                 />
-                                            </video>
-                                        ) : null}
-                                    </figure>
-                                );
-                            }
-                        })}
+                                            ) : isVideo(item.extension) ? (
+                                                <video
+                                                    loop
+                                                    autoPlay
+                                                    muted
+                                                    className="gallery__img"
+                                                    onClick={() => {
+                                                        handleClick(
+                                                            item.photo_path,
+                                                            item.extension
+                                                        );
+                                                    }}
+                                                >
+                                                    <source
+                                                        src={item.photo_path}
+                                                        type="video/mp4"
+                                                    />
+                                                </video>
+                                            ) : null}
+                                        </figure>
+                                    );
+                                }
+                            })}
                     </div>
                 </div>
             </div>

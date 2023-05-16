@@ -2,14 +2,11 @@ import Footer from "@/Components/Footer";
 import Gallery from "@/Components/Gallery/Gallery";
 import Header from "@/Components/Header";
 
-export default function Home(props) {
+export default function Home() {
     return (
         <div>
             <Header />
-            <Gallery
-                portfolioImages={props.portfolioImages}
-                maxOrderNum={props.maxOrderNum}
-            />
+            <Gallery />
             <div className="quote">
                 <p className="text1">
                     I found I could say things with color and shapes that I

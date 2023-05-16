@@ -53,18 +53,27 @@ class PortfolioImageController extends Controller
         return view('portfolioImage.index', ['portfolioImages' => $portfolioImages, 'maxOrder' => [$maxOrderNum, $maxOrderIndex]]);
     }
 
-    public function home(Image $image)
+    public function home()
+    {
+        return Inertia::render('Home');
+    }
+    public function getPortfolioImages(Image $image)
     {
         $portfolioImages = PortfolioImage::where('order', '>', 0)->get();
-        $maxOrderNum = PortfolioImage::max('order');
-
-        if ($maxOrderNum % 2 === 1) {
-            $maxOrderNum -= 1;
-        }
         foreach ($portfolioImages as $key => $content) {
             $portfolioImages[$key]['extension'] = $image->getExtension($content->photo_path);
         }
-        return Inertia::render('Home', ['portfolioImages' => $portfolioImages, 'maxOrderNum' => $maxOrderNum]);
+
+        return response()->json($portfolioImages);
+    }
+
+    public function getMaxOrderNum()
+    {
+        $maxOrderNum = PortfolioImage::max('order');
+        if ($maxOrderNum % 2 === 1) {
+            $maxOrderNum -= 1;
+        }
+        return response()->json($maxOrderNum);
     }
 
     /**
