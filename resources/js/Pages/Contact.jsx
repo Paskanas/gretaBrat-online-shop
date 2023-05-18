@@ -8,7 +8,7 @@ import Footer from "@/Components/Footer";
 import EmailForm from "@/Components/Contacts/EmailForm";
 import MessageModal from "@/Components/Modals/MessageModal";
 
-export default function Contact(props) {
+export default function Contact() {
     const [modal, setModal] = useState(false);
     const [modalMessage, setModalMessage] = useState([]);
     const [loading, setLoading] = useState(false);

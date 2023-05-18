@@ -1,22 +1,11 @@
-import {
-    faInstagram,
-    faTiktok,
-    faTwitter,
-} from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SocialMediaLink from "./Links/SocialMediaLink";
 
 const Footer = () => {
     return (
         <div className="flex justify-center gap-16 mt-5 mb-10 text-xl">
-            <a href="https://www.instagram.com/gretabrat/">
-                <FontAwesomeIcon icon={faInstagram} />
-            </a>
-            <a href="https://twitter.com/gretabrat_">
-                <FontAwesomeIcon icon={faTwitter} />
-            </a>
-            <a href="https://www.tiktok.com/@gretabrat?">
-                <FontAwesomeIcon icon={faTiktok} />
-            </a>
+            <SocialMediaLink socialMedia="instagram" />
+            <SocialMediaLink socialMedia="twitter" />
+            <SocialMediaLink socialMedia="tiktok" />
         </div>
     );
 };

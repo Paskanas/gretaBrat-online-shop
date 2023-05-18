@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { ClipLoader } from "react-spinners";
 import swal from "sweetalert";
+import BlackButton from "../Buttons/BlackButton";
 
 const EmailForm = (props) => {
     const errColor = "red";
@@ -36,18 +37,12 @@ const EmailForm = (props) => {
         // formData;
         props.setLoading(true);
         axios
-            .post(
-                window.location.protocol +
-                    "//" +
-                    window.location.host +
-                    "/contacts",
-                {
-                    name: name,
-                    surname: surname,
-                    email: email,
-                    message: message,
-                }
-            )
+            .post("/contacts", {
+                name: name,
+                surname: surname,
+                email: email,
+                message: message,
+            })
             .then((res) => {
                 if (res.data.status === 200) {
                     resetForm();
@@ -150,22 +145,12 @@ const EmailForm = (props) => {
                     onChange={() => setMessage(event.target.value)}
                 />
                 <div className="flex justify-center">
-                    <button
+                    <BlackButton
+                        loading={props.loading}
                         type="submit"
-                        className="bg-black text-white w-28 p-4 py-2 rounded leading-7 flex align-middle justify-center"
-                        onClick={sendmail}
-                    >
-                        {props.loading ? (
-                            <ClipLoader
-                                color="#e31ed5"
-                                cssOverride={{}}
-                                loading
-                                size={28}
-                            />
-                        ) : (
-                            "Submit"
-                        )}
-                    </button>
+                        handleClick={sendmail}
+                        loaderSize={28}
+                    />
                 </div>
             </form>
         </div>
