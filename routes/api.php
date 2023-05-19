@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\AchievementController;
-use App\Http\Controllers\EmailController;
 use App\Http\Controllers\PortfolioImageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
