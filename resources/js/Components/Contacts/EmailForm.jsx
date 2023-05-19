@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { ClipLoader } from "react-spinners";
+import Cookies from "js-cookie";
 import swal from "sweetalert";
+import { sendEmail } from "@/services/api";
 
 const EmailForm = (props) => {
     const errColor = "red";
@@ -31,59 +33,67 @@ const EmailForm = (props) => {
 
     const sendmail = async (e) => {
         e.preventDefault();
-
-        // const formData = {};
-        // formData;
+        // console.log(Cookies.get("XSRF-TOKEN"));
         props.setLoading(true);
-        axios
-            .post(
-                window.location.protocol +
-                    "//" +
-                    window.location.host +
-                    "/contacts",
-                {
-                    name: name,
-                    surname: surname,
-                    email: email,
-                    message: message,
-                }
-            )
-            .then((res) => {
-                if (res.data.status === 200) {
-                    resetForm();
-                    props.setLoading(false);
-                    swal("Success", "Email sent successfuly", "success");
-                } else if (res.data.status === 422) {
-                    props.setLoading(false);
-                    resetFormColors();
 
-                    const messages = Object.keys(res.data.errors).map(
-                        (error) => {
-                            if (error === "name") {
-                                setNameColor(errColor);
-                            } else if (error === "email") {
-                                setEmailColor(errColor);
-                            } else if (error === "message") {
-                                setMessageColor(errColor);
-                            }
-                            return res.data.errors[error];
-                        }
-                    );
+        sendEmail(
+            name,
+            surname,
+            email,
+            message,
+            // Cookies.get("XSRF-TOKEN"),
+            props.setLoading,
+            resetFormColors,
+            setNameColor,
+            errColor,
+            setMessageColor,
+            setEmailColor
+        );
 
-                    swal({
-                        title: "Warning",
-                        text: messages.join("\n"),
-                        type: "warning",
-                    });
-                }
-            })
-            .catch((err) => {
-                swal({
-                    title: "Error",
-                    text: "Something went wrong",
-                    type: "error",
-                });
-            });
+        // axios
+        //     .post("/contacts", {
+        //         name: name,
+        //         surname: surname,
+        //         email: email,
+        //         message: message,
+        //     })
+        //     .then((res) => {
+        //         if (res.data.status === 200) {
+        //             resetForm();
+        // props.setLoading(false);
+        //             swal("Success", "Email sent successfuly", "success");
+        //         } else if (res.data.status === 422) {
+        //             props.setLoading(false);
+        //             resetFormColors();
+
+        //             const messages = Object.keys(res.data.errors).map(
+        //                 (error) => {
+        //                     if (error === "name") {
+        //                         setNameColor(errColor);
+        //                     } else if (error === "email") {
+        //                         setEmailColor(errColor);
+        //                     } else if (error === "message") {
+        //                         setMessageColor(errColor);
+        //                     }
+        //                     return res.data.errors[error];
+        //                 }
+        //             );
+
+        //             swal({
+        //                 title: "Warning",
+        //                 text: messages.join("\n"),
+        //                 type: "warning",
+        //             });
+        //         }
+        //     })
+        //     .catch((err) => {
+        //         props.setLoading(false);
+        //         swal({
+        //             title: "Error",
+        //             text: "Something went wrong",
+        //             type: "error",
+        //         });
+        //     });
     };
 
     return (
@@ -153,6 +163,7 @@ const EmailForm = (props) => {
                     <button
                         type="submit"
                         className="bg-black text-white w-28 p-4 py-2 rounded leading-7 flex align-middle justify-center"
+                        disabled={props.loading}
                         onClick={sendmail}
                     >
                         {props.loading ? (

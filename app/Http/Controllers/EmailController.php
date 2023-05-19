@@ -11,6 +11,13 @@ use Validator;
 class EmailController extends Controller
 {
 
+    public function getCsrfToken(Request $request)
+    {
+        $csrfToken = $request->cookie('XSRF-TOKEN');
+        // Return the CSRF token value
+        return response()->json(['csrfToken' => $csrfToken]);
+    }
+
     public function sendEmail(Request $request)
     {
         $validator = Validator::make(

@@ -56,3 +56,60 @@ export const loginUser = async (email, password, remember) => {
         console.error(error);
     }
 };
+
+export const sendEmail = (
+    name,
+    surname,
+    email,
+    message,
+    setLoading,
+    resetFormColors,
+    setNameColor,
+    errColor,
+    setMessageColor,
+    setEmailColor
+) => {
+    axios
+        .post("/contacts", {
+            name: name,
+            surname: surname,
+            email: email,
+            message: message,
+        })
+        .then((res) => {
+            if (res.data.status === 200) {
+                resetForm();
+                setLoading(false);
+                swal("Success", "Email sent successfuly", "success");
+            } else if (res.data.status === 422) {
+                setLoading(false);
+                resetFormColors();
+
+                const messages = Object.keys(res.data.errors).map((error) => {
+                    if (error === "name") {
+                        setNameColor(errColor);
+                    } else if (error === "email") {
+                        setEmailColor(errColor);
+                    } else if (error === "message") {
+                        setMessageColor(errColor);
+                    }
+                    return res.data.errors[error];
+                });
+
+                swal({
+                    title: "Warning",
+                    text: messages.join("\n"),
+                    type: "warning",
+                });
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+            setLoading(false);
+            swal({
+                title: "Error",
+                text: "Something went wrong",
+                type: "error",
+            });
+        });
+};
