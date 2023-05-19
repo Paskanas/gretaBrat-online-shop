@@ -6,10 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Contact;
 use Illuminate\Support\Facades\App;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class EmailController extends Controller
 {
+
+    public function getCsrfToken(Request $request)
+    {
+        $csrfToken = $request->cookie('XSRF-TOKEN');
+        // Return the CSRF token value
+        return response()->json(['csrfToken' => $csrfToken]);
+    }
 
     public function sendEmail(Request $request)
     {
@@ -33,11 +40,11 @@ class EmailController extends Controller
             $name = $request->name;
             $surname = $request->surname;
             $email = $request->email;
-            $messages = $request->message;
+            $message = $request->message;
             if (App::environment('production')) {
-                Mail::to('info.gretabrat@gmail.com')->send(new Contact($name, $surname, $email, $messages));
+                Mail::to('info.gretabrat@gmail.com')->send(new Contact($name, $surname, $email, $message));
             } else {
-                Mail::to('paskanass@gmail.com')->send(new Contact($name, $surname, $email, $messages));
+                Mail::to('paskanass@gmail.com')->send(new Contact($name, $surname, $email, $message));
             }
             return response()->json([
                 'status' => 200
