@@ -17,9 +17,14 @@ class AchievementController extends Controller
      */
     public function indexJs()
     {
-        $achievements = Achievement::all();
-        return Inertia::render('AboutMe', ['achievements' => $achievements]);
+        return Inertia::render('AboutMe');
     }
+    public function getAchievements()
+    {
+        $achievements = Achievement::all();
+        return response()->json($achievements);
+    }
+
     public function index()
     {
         $achievements = Achievement::all();

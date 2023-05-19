@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AchievementController;
 use App\Http\Controllers\PortfolioImageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/portfolio-images', [PortfolioImageController::class, 'getPortfolioImages'])->name('getPortfolioImages');
 Route::get('/get-max-order-number', [PortfolioImageController::class, 'getMaxOrderNum'])->name('getMaxOrderNum');
+Route::get('/achievements', [AchievementController::class, 'getAchievements'])->name('getAchievements');

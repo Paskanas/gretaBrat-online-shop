@@ -1,7 +1,7 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { ClipLoader } from "react-spinners";
 import swal from "sweetalert";
+import { sendEmail } from "@/services/api";
 
 const EmailForm = (props) => {
     const errColor = "red";
@@ -32,58 +32,43 @@ const EmailForm = (props) => {
     const sendmail = async (e) => {
         e.preventDefault();
 
-        // const formData = {};
-        // formData;
         props.setLoading(true);
-        axios
-            .post(
-                window.location.protocol +
-                    "//" +
-                    window.location.host +
-                    "/contacts",
-                {
-                    name: name,
-                    surname: surname,
-                    email: email,
-                    message: message,
-                }
-            )
-            .then((res) => {
-                if (res.data.status === 200) {
-                    resetForm();
-                    props.setLoading(false);
-                    swal("Success", "Email sent successfuly", "success");
-                } else if (res.data.status === 422) {
-                    props.setLoading(false);
-                    resetFormColors();
 
-                    const messages = Object.keys(res.data.errors).map(
-                        (error) => {
-                            if (error === "name") {
-                                setNameColor(errColor);
-                            } else if (error === "email") {
-                                setEmailColor(errColor);
-                            } else if (error === "message") {
-                                setMessageColor(errColor);
-                            }
-                            return res.data.errors[error];
-                        }
-                    );
+        try {
+            const res = await sendEmail(name, surname, email, message);
+            if (res.status === 200) {
+                resetForm();
+                props.setLoading(false);
+                swal("Success", "Email sent successfuly", "success");
+            } else if (res.status === 422) {
+                props.setLoading(false);
+                resetFormColors();
 
-                    swal({
-                        title: "Warning",
-                        text: messages.join("\n"),
-                        type: "warning",
-                    });
-                }
-            })
-            .catch((err) => {
-                swal({
-                    title: "Error",
-                    text: "Something went wrong",
-                    type: "error",
+                const messages = Object.keys(res.errors).map((error) => {
+                    if (error === "name") {
+                        setNameColor(errColor);
+                    } else if (error === "email") {
+                        setEmailColor(errColor);
+                    } else if (error === "message") {
+                        setMessageColor(errColor);
+                    }
+                    return res.errors[error];
                 });
+
+                swal({
+                    title: "Warning",
+                    text: messages.join("\n"),
+                    type: "warning",
+                });
+            }
+        } catch (e) {
+            props.setLoading(false);
+            swal({
+                title: "Error",
+                text: "Something went wrong",
+                type: "error",
             });
+        }
     };
 
     return (
@@ -153,6 +138,7 @@ const EmailForm = (props) => {
                     <button
                         type="submit"
                         className="bg-black text-white w-28 p-4 py-2 rounded leading-7 flex align-middle justify-center"
+                        disabled={props.loading}
                         onClick={sendmail}
                     >
                         {props.loading ? (
