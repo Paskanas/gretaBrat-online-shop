@@ -1,7 +1,5 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { ClipLoader } from "react-spinners";
-import Cookies from "js-cookie";
 import swal from "sweetalert";
 import { sendEmail } from "@/services/api";
 
