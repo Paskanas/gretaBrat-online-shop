@@ -33,67 +33,44 @@ const EmailForm = (props) => {
 
     const sendmail = async (e) => {
         e.preventDefault();
-        // console.log(Cookies.get("XSRF-TOKEN"));
+
         props.setLoading(true);
 
-        sendEmail(
-            name,
-            surname,
-            email,
-            message,
-            // Cookies.get("XSRF-TOKEN"),
-            props.setLoading,
-            resetFormColors,
-            setNameColor,
-            errColor,
-            setMessageColor,
-            setEmailColor
-        );
+        try {
+            const res = await sendEmail(name, surname, email, message);
+            if (res.status === 200) {
+                resetForm();
+                props.setLoading(false);
+                swal("Success", "Email sent successfuly", "success");
+            } else if (res.status === 422) {
+                props.setLoading(false);
+                resetFormColors();
 
-        // axios
-        //     .post("/contacts", {
-        //         name: name,
-        //         surname: surname,
-        //         email: email,
-        //         message: message,
-        //     })
-        //     .then((res) => {
-        //         if (res.data.status === 200) {
-        //             resetForm();
-        // props.setLoading(false);
-        //             swal("Success", "Email sent successfuly", "success");
-        //         } else if (res.data.status === 422) {
-        //             props.setLoading(false);
-        //             resetFormColors();
+                const messages = Object.keys(res.errors).map((error) => {
+                    if (error === "name") {
+                        setNameColor(errColor);
+                    } else if (error === "email") {
+                        setEmailColor(errColor);
+                    } else if (error === "message") {
+                        setMessageColor(errColor);
+                    }
+                    return res.errors[error];
+                });
 
-        //             const messages = Object.keys(res.data.errors).map(
-        //                 (error) => {
-        //                     if (error === "name") {
-        //                         setNameColor(errColor);
-        //                     } else if (error === "email") {
-        //                         setEmailColor(errColor);
-        //                     } else if (error === "message") {
-        //                         setMessageColor(errColor);
-        //                     }
-        //                     return res.data.errors[error];
-        //                 }
-        //             );
-
-        //             swal({
-        //                 title: "Warning",
-        //                 text: messages.join("\n"),
-        //                 type: "warning",
-        //             });
-        //         }
-        //     })
-        //     .catch((err) => {
-        //         props.setLoading(false);
-        //         swal({
-        //             title: "Error",
-        //             text: "Something went wrong",
-        //             type: "error",
-        //         });
-        //     });
+                swal({
+                    title: "Warning",
+                    text: messages.join("\n"),
+                    type: "warning",
+                });
+            }
+        } catch (e) {
+            props.setLoading(false);
+            swal({
+                title: "Error",
+                text: "Something went wrong",
+                type: "error",
+            });
+        }
     };
 
     return (

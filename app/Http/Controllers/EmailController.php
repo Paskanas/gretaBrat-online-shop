@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Contact;
 use Illuminate\Support\Facades\App;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class EmailController extends Controller
 {
