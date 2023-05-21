@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\PortfolioImage;
 use App\Http\Requests\StorePortfolioImageRequest;
 use App\Http\Requests\UpdatePortfolioImageRequest;
@@ -10,7 +11,6 @@ use App\Jobs\CreateThumbnailFromVideo;
 use App\Models\Image;
 use getID3;
 use Illuminate\Support\Facades\App;
-use Inertia\Inertia;
 
 
 // import the Intervention Image Manager Class
@@ -20,6 +20,11 @@ class PortfolioImageController extends Controller
 {
     private $directory = 'portfolio';
 
+    public function __construct()
+    {
+        $this->authorize('portfolio_images_page');  //third security
+        $this->authorize('viewAny');                //forth security
+    }
     /**
      * Display a listing of the resource.
      *
@@ -50,30 +55,7 @@ class PortfolioImageController extends Controller
             }
         }
 
-        return view('portfolioImage.index', ['portfolioImages' => $portfolioImages, 'maxOrder' => [$maxOrderNum, $maxOrderIndex]]);
-    }
-
-    public function home()
-    {
-        return Inertia::render('Home');
-    }
-    public function getPortfolioImages(Image $image)
-    {
-        $portfolioImages = PortfolioImage::where('order', '>', 0)->get();
-        foreach ($portfolioImages as $key => $content) {
-            $portfolioImages[$key]['extension'] = $image->getExtension($content->photo_path);
-        }
-
-        return response()->json($portfolioImages);
-    }
-
-    public function getMaxOrderNum()
-    {
-        $maxOrderNum = PortfolioImage::max('order');
-        if ($maxOrderNum % 2 === 1) {
-            $maxOrderNum -= 1;
-        }
-        return response()->json($maxOrderNum);
+        return view('admin.portfolioImage.index', ['portfolioImages' => $portfolioImages, 'maxOrder' => [$maxOrderNum, $maxOrderIndex]]);
     }
 
     /**
@@ -90,7 +72,7 @@ class PortfolioImageController extends Controller
             $order[$number] = $number;
         }
         $availableOrders = array_diff($order, $portfolioImages);
-        return view('portfolioImage.create', ['availableOrders' => $availableOrders]);
+        return view('admin.portfolioImage.create', ['availableOrders' => $availableOrders]);
     }
 
     /**
@@ -139,7 +121,7 @@ class PortfolioImageController extends Controller
             $portfolioImage['imageDimentions'] = [$file['video']['resolution_x'], $file['video']['resolution_y']];
             $portfolioImage['isVideo'] = true;
         }
-        return view('portfolioImage.show', [
+        return view('admin.portfolioImage.show', [
             'portfolioImage' => $portfolioImage
         ]);
     }
@@ -173,7 +155,7 @@ class PortfolioImageController extends Controller
         }
 
         $availableOrders = array_diff($order, $portfolioOrders);
-        return view('portfolioImage.edit', ['portfolioImage' => $portfolioImage, 'availableOrders' => $availableOrders]);
+        return view('admin.portfolioImage.edit', ['portfolioImage' => $portfolioImage, 'availableOrders' => $availableOrders]);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Role;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,7 @@ class RoleControl
         }
 
         if ($role === 'admin') {
-            if ($userRole < 10) {
+            if ($userRole < Role::IS_ADMIN) {
                 abort(401);  // 401 Unauthorized
             }
         }

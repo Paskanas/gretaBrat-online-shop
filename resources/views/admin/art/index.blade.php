@@ -37,7 +37,7 @@
                 </div>
                 <div class="col-3 d-flex align-items-center justify-evenly">
                   <div class="d-flex flex-column w-100">
-                    <a class="btn btn-outline-primary m-2" href="{{route('arts-show', $art->id)}}">SHOW</a>
+                    {{-- <a class="btn btn-outline-primary m-2" href="{{route('arts-show', $art->id)}}">SHOW</a> --}}
                     {{-- not need if different page --}}
                     @if(Auth::user()?->role??0 >9)
                     <a class="btn btn-outline-success m-2" href="{{route('arts-edit', $art)}}">EDIT</a>
