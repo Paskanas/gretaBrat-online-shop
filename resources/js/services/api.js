@@ -53,7 +53,7 @@ export const loginUser = async (email, password, remember) => {
         localStorage.setItem("access_token", response.data.access_token);
         window.location.href = "/portfolioImages-admin";
     } catch (error) {
-        console.error(error);
+        throw error;
     }
 };
 
