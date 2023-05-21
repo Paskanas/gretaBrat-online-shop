@@ -17,13 +17,18 @@ class RoleControl
     public function handle(Request $request, Closure $next, $role)
     {
         $userRole = $request->user()?->role ?? 0;
+
+        if (!auth()->check() || auth()->user()->role != $userRole) {
+            abort(403);  // 403 Forbidden
+        }
+
         if ($role === 'admin') {
             if ($userRole < 10) {
-                abort(401);
+                abort(401);  // 401 Unauthorized
             }
         }
         //komentaras
-        //kiek matau nereikia
+        //for now there isn't any regular users
         // if ($role === 'user') {
         //     if ($userRole < 1) {
         //         abort(401);

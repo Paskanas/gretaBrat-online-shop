@@ -1,43 +1,56 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Checkbox from "@/Components/Checkbox";
 import GuestLayout from "@/Layouts/GuestLayout";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import { Head, Link, useForm } from "@inertiajs/inertia-react";
+import { Head, Link } from "@inertiajs/inertia-react";
 import { loginUser } from "@/services/api";
 
 export default function Login({ status, canResetPassword }) {
-    const { data, setData, post, processing, errors, reset } = useForm({
+    const [data, setData] = useState({
         email: "",
         password: "",
         remember: "",
     });
+    const [processing, setProcessing] = useState(false);
+    const [errors, setErrors] = useState({});
+
+    const resetPassword = () => {
+        setData({ ...data, password: "" });
+    };
 
     useEffect(() => {
         return () => {
-            reset("password");
+            resetPassword();
         };
     }, []);
 
     const onHandleChange = (event) => {
-        setData(
-            event.target.name,
-            event.target.type === "checkbox"
-                ? event.target.checked
-                : event.target.value
-        );
+        setData({
+            ...data,
+            [event.target.name]:
+                event.target.type === "checkbox"
+                    ? event.target.checked
+                    : event.target.value,
+        });
     };
 
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
-
-        loginUser(data.email, data.password, data.remember)
-            .then()
-            .catch((error) => {
-                console.error("Error logging in", error);
-            });
+        setProcessing(true);
+        try {
+            const response = await loginUser(
+                data.email,
+                data.password,
+                data.remember
+            );
+            setProcessing(false);
+        } catch (error) {
+            setProcessing(false);
+            setErrors(error.response.data.errors);
+        }
     };
 
     return (
@@ -111,7 +124,11 @@ export default function Login({ status, canResetPassword }) {
                     >
                         Register
                     </Link>
-                    <PrimaryButton className="ml-4" processing={processing}>
+                    <PrimaryButton
+                        className="ml-4"
+                        processing={processing}
+                        disabled={!data.email || !data.password}
+                    >
                         Log in
                     </PrimaryButton>
                 </div>
