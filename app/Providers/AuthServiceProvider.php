@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+
+use App\Models\Role;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +29,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Gate::define('artworks_page', fn (User $user) => $user->role === Role::IS_ADMIN);
+        Gate::define('portfolio_images_page', fn (User $user) => $user->role === Role::IS_ADMIN);
+        Gate::define('achievements_page', fn (User $user) => $user->role === Role::IS_ADMIN);
+        Gate::define('optimize_page', fn (User $user) => $user->role === Role::IS_ADMIN);
         //
     }
 }

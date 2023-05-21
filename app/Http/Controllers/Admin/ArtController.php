@@ -1,15 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Art;
 use App\Http\Requests\StoreArtRequest;
 use App\Http\Requests\UpdateArtRequest;
-use Inertia\Inertia;
 use App\Models\Image;
 
 class ArtController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorize('artworks_page');      //third security
+        $this->authorize('viewAny');            //forth security
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,19 +25,7 @@ class ArtController extends Controller
     public function index()
     {
         $arts = Art::all();
-        return view('art.index', ['arts' => $arts]);
-    }
-
-    public function home()
-    {
-        $arts = Art::all();
-        return Inertia::render('Home', ['arts' => $arts]);
-    }
-
-    public function shop()
-    {
-        $arts = Art::all();
-        return Inertia::render('Shop', ['arts' => $arts]);
+        return view('admin.art.index', ['arts' => $arts]);
     }
 
     /**
@@ -40,7 +35,7 @@ class ArtController extends Controller
      */
     public function create()
     {
-        return view('art.create', []);
+        return view('admin.art.create', []);
     }
 
     /**
@@ -68,18 +63,6 @@ class ArtController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Art  $art
-     * @return \Illuminate\Http\Response
-     */
-    public function showJs(int $artId)
-    {
-        $art = Art::where('id', $artId)->first();
-        return Inertia::render('ShopItem', ['art' => $art, 'sizes' => Art::SIZES]);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Art  $art
@@ -87,7 +70,7 @@ class ArtController extends Controller
      */
     public function edit(Art $art)
     {
-        return view('art.edit', ['art' => $art]);
+        return view('admin.art.edit', ['art' => $art]);
     }
 
     /**
@@ -136,7 +119,6 @@ class ArtController extends Controller
 
     public function deletePicture(Art $art, Image $image, $path)
     {
-
         if ($art->photo_path) {
             $image->deleteImage($path, 'artworks');
         }

@@ -50,7 +50,7 @@ class Contact extends Mailable
     public function content()
     {
         return new Content(
-            view: 'emails.contacts',
+            view: 'user.emails.contacts',
         );
     }
 

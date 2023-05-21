@@ -1,34 +1,29 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Achievement;
 use App\Http\Requests\StoreAchievementRequest;
 use App\Http\Requests\UpdateAchievementRequest;
-use Illuminate\Http\Request;
-use Inertia\Inertia;
 
 class AchievementController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorize('achievements_page');  //third security
+        $this->authorize('viewAny');            //forth security
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function indexJs()
-    {
-        return Inertia::render('AboutMe');
-    }
-    public function getAchievements()
-    {
-        $achievements = Achievement::all();
-        return response()->json($achievements);
-    }
-
     public function index()
     {
         $achievements = Achievement::all();
-        return view('achievements.index', ['achievements' => $achievements]);
+        return view('admin.achievements.index', ['achievements' => $achievements]);
     }
 
     /**
@@ -38,7 +33,7 @@ class AchievementController extends Controller
      */
     public function create()
     {
-        return view('achievements.create');
+        return view('admin.achievements.create');
     }
 
     /**
