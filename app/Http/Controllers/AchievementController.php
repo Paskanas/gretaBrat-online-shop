@@ -17,12 +17,12 @@ class AchievementController extends Controller
      */
     public function indexJs()
     {
-        $achievements = Achievement::all();
+        $achievements = Achievement::select('id', 'achievement')->orderByDesc('id')->get();
         return Inertia::render('AboutMe', ['achievements' => $achievements]);
     }
     public function index()
     {
-        $achievements = Achievement::all();
+        $achievements = Achievement::select('id', 'achievement')->orderByDesc('id')->get();
         return view('achievements.index', ['achievements' => $achievements]);
     }
 
