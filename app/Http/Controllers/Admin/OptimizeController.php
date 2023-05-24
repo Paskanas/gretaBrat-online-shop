@@ -10,7 +10,7 @@ class OptimizeController extends Controller
 
   public function __construct()
   {
-    $this->authorize('optimize_page');  //third security
+    // $this->authorize('optimize_page');  //third security
   }
 
   public function optimize()

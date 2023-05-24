@@ -55,15 +55,13 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('delete-picture/{portfolioImage}', [AdminPortfolioImageController::class, 'deletePicture'])->name('delete-picture');
     });
     // Achievements
-    Route::prefix('achievements-admin')->
-        // middleware('roleControl:admin')->
-        name('achievements-')->controller(AdminAchievementController::class)->group(function () {
-            Route::get('', 'index')->name('index');
-            Route::get('create', 'create')->name('create');
-            Route::post('', 'store')->name('store');
-            Route::put('{achievement}', 'update')->name('update');
-            Route::delete('{achievement}', 'destroy')->name('delete');
-        });
+    Route::prefix('achievements-admin')->middleware('roleControl:admin')->name('achievements-')->controller(AdminAchievementController::class)->group(function () {
+        Route::get('', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('', 'store')->name('store');
+        Route::put('{achievement}', 'update')->name('update');
+        Route::delete('{achievement}', 'destroy')->name('delete');
+    });
 
     //artisan optimize
     Route::get('/clear-optimize', [AdminOptimizeController::class, 'clearOptimize'])->name('clear')->middleware('roleControl:admin');

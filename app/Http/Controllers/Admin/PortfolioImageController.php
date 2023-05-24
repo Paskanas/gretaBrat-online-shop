@@ -22,8 +22,8 @@ class PortfolioImageController extends Controller
 
     public function __construct()
     {
-        $this->authorize('portfolio_images_page');  //third security
-        $this->authorize('viewAny');                //forth security
+        // $this->authorize('portfolio_images_page');  //third security
+        // $this->authorize('viewAny');                //forth security
     }
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class PortfolioImageController extends Controller
     {
         $portfolioImages = PortfolioImage::orderBy('order')->get();
         $maxOrderNum = PortfolioImage::select()->max('order');
-
+        $maxOrderIndex = 0;
         foreach ($portfolioImages as $key => $content) {
             $extension = $image->getExtension($content->photo_path);
             if ($content->order === $maxOrderNum) {
@@ -88,12 +88,13 @@ class PortfolioImageController extends Controller
         $portfolioImage->order = $request->order;
 
 
-        if ($request->file('photoPath')) {
+        $content = $request->file('photoPath');
+        if ($content) {
             $portfolioImage->photo_path = $image->processImage($request, $portfolioImage->title, 'photoPath', null, $this->directory);
         }
 
         $portfolioImage->save();
-        if (App::environment('local')) {
+        if (App::environment('local') && $content->getClientOriginalExtension() === 'mp4') {
             CreateThumbnailFromVideo::dispatch($portfolioImage);
             CompressVideo::dispatch($portfolioImage);
         }
