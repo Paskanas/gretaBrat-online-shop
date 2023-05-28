@@ -18,7 +18,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
   {{-- my comment --}}
   {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
-  @vite(['resources/css/appblade.css', 'resources/js/backBootstrap.ts'])
+  @vite(['resources/css/appblade.css', 'resources/js/backBootstrap.js'])
 
 </head>
 <body>
@@ -114,8 +114,7 @@
 
               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                            localStorage.removeItem('access_token');
-                            document.getElementById('logout-form').submit();">
+                                                     document.getElementById('logout-form').submit();">
                   {{ __('Logout') }}
                 </a>
 

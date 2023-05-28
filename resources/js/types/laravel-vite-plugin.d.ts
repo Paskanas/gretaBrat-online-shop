@@ -1,1 +1,0 @@
-declare module 'laravel-vite-plugin/inertia-helpers';

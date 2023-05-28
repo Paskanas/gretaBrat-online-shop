@@ -86,10 +86,8 @@ class Image extends Model
         $ext = pathinfo($imagePath, PATHINFO_EXTENSION);
         if (App::environment('production')) {
             $path = getcwd() . "/storage/images/$directoryName/" . $name . '.' . $ext;
-        } else if (App::environment('local')) {
+        } else {
             $path = public_path("/storage/images/$directoryName/") . $name . '.' . $ext;
-        } else if (App::environment('testing')) {
-            $path = public_path("/storage/images/test/$directoryName/") . $name . '.' . $ext;
         }
         return $path;
     }

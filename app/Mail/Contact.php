@@ -55,7 +55,7 @@ class Contact extends Mailable
     public function content()
     {
         return new Content(
-            view: 'user.emails.contacts',
+            view: 'emails.contacts',
         );
     }
 

@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\Models\Art;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -19,7 +18,7 @@ class ArtPolicy
      */
     public function viewAny(User $user)
     {
-        return in_array($user->role, [Role::IS_ADMIN]);
+        //
     }
 
     /**
