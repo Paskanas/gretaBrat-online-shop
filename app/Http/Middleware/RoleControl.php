@@ -19,7 +19,7 @@ class RoleControl
     {
         $userRole = $request->user()?->role ?? 0;
 
-        if (!auth()->check() || auth()->user()->role != $userRole) {
+        if (!auth()->check() || auth()->user()->role != Role::IS_ADMIN) {
             abort(403);  // 403 Forbidden
         }
 
