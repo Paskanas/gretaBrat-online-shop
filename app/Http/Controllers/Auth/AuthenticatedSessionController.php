@@ -37,13 +37,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $user = $request->user();
-        $token = $user->createToken('myapptoken')->plainTextToken;
-
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-        ], 201);
+        return redirect(RouteServiceProvider::ADMIN);
     }
 
     /**

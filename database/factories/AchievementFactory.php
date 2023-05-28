@@ -17,7 +17,7 @@ class AchievementFactory extends Factory
     public function definition()
     {
         return [
-            'achievement' => $this->faker->sentence(),
+            //
         ];
     }
 }

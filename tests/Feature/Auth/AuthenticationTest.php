@@ -28,13 +28,7 @@ class AuthenticationTest extends TestCase
         ]);
 
         $this->assertAuthenticated();
-
-        $response->assertJsonStructure([
-            'access_token',
-            'token_type'
-        ]);
-        $response->assertJson(['token_type' => 'Bearer']);
-        $response->assertStatus(201);
+        $response->assertRedirect(RouteServiceProvider::ADMIN);
     }
 
     public function test_users_can_not_authenticate_with_invalid_password()

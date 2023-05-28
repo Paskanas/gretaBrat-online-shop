@@ -3,7 +3,6 @@
 namespace App\Policies;
 
 use App\Models\PortfolioImage;
-use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -31,7 +30,7 @@ class PortfolioImagePolicy
      */
     public function view(User $user, PortfolioImage $portfolioImage)
     {
-        return in_array($user->role, [Role::IS_ADMIN]);
+        //
     }
 
     /**
