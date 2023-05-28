@@ -22,8 +22,8 @@ class PortfolioImageController extends Controller
 
     public function __construct()
     {
-        $this->authorize('portfolio_images_page');  //third security
-        $this->authorize('viewAny');                //forth security
+        // $this->authorize('portfolio_images_page');  //third security
+        // $this->authorize('viewAny');                //forth security
     }
     /**
      * Display a listing of the resource.

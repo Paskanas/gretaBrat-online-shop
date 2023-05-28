@@ -13,8 +13,8 @@ class ArtController extends Controller
 
     public function __construct()
     {
-        $this->authorize('artworks_page');      //third security
-        $this->authorize('viewAny');            //forth security
+        // $this->authorize('artworks_page');      //third security
+        // $this->authorize('viewAny');            //forth security
     }
 
     /**

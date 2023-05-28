@@ -12,8 +12,8 @@ class AchievementController extends Controller
 
     public function __construct()
     {
-        $this->authorize('achievements_page');  //third security
-        $this->authorize('viewAny');            //forth security
+        // $this->authorize('achievements_page');  //third security
+        // $this->authorize('viewAny');            //forth security
     }
     /**
      * Display a listing of the resource.

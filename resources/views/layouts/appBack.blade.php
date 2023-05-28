@@ -18,7 +18,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
   {{-- my comment --}}
   {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
-  @vite(['resources/css/appblade.css', 'resources/js/backBootstrap.js'])
+  @vite(['resources/css/appblade.css', 'resources/js/backBootstrap.ts'])
 
 </head>
 <body>
