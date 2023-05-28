@@ -22,7 +22,7 @@ class AchievementController extends Controller
      */
     public function index()
     {
-        $achievements = Achievement::all();
+        $achievements = Achievement::select('id', 'achievement')->orderByDesc('id')->get();
         return view('admin.achievements.index', ['achievements' => $achievements]);
     }
 

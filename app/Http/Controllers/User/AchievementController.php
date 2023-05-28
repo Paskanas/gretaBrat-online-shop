@@ -19,7 +19,7 @@ class AchievementController extends Controller
     }
     public function getAchievements()
     {
-        $achievements = Achievement::all();
+        $achievements = Achievement::select('id', 'achievement')->orderByDesc('id')->get();
         return response()->json($achievements);
     }
 }

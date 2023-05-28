@@ -58,6 +58,7 @@ export default function Login({ status, canResetPassword }: { status?: string, c
                     <InputLabel forInput="email" value="Email" />
 
                     <TextInput
+                        id="email"
                         type="text"
                         name="email"
                         value={data.email}
@@ -74,6 +75,7 @@ export default function Login({ status, canResetPassword }: { status?: string, c
                     <InputLabel forInput="password" value="Password" />
 
                     <TextInput
+                        id="password"
                         type="password"
                         name="password"
                         value={data.password}
