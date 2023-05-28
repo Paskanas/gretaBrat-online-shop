@@ -27,7 +27,6 @@ const Gallery = () => {
         const fetchPortfolioImages = async () => {
             try {
                 const homePageDataFromApi = await getHomePageData();
-                console.log(homePageDataFromApi);
                 setPortfolioImages(homePageDataFromApi.portfolioImages);
                 setMaxOrderNum(homePageDataFromApi.maxOrderNum);
             } catch (e) {

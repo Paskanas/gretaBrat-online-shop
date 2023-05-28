@@ -7,6 +7,7 @@ const OtherShops = () => {
                 <div className="w-full md:w-48 flex justify-center">
                     <a
                         href="https://makersplace.com/gretabrat/"
+                        target="_blank"
                         className="my-3 md:p-6 "
                     >
                         <img
@@ -18,6 +19,7 @@ const OtherShops = () => {
                 <div className="w-48 flex justify-center">
                     <a
                         href="https://knownorigin.io/gretabrat"
+                        target="_blank"
                         className="my-3 md:p-6"
                     >
                         <img
@@ -29,6 +31,7 @@ const OtherShops = () => {
                 <div className="w-48 flex justify-center">
                     <a
                         href="https://foundation.app/@gretabrat"
+                        target="_blank"
                         className="my-3 md:p-6"
                     >
                         <img
