@@ -34,11 +34,11 @@ class EmailController extends Controller
             $name = $request->name;
             $surname = $request->surname;
             $email = $request->email;
-            $messages = $request->message;
+            $message = $request->message;
             if (App::environment('production')) {
-                Mail::to('info.gretabrat@gmail.com')->send(new Contact($name, $surname, $email, $messages));
+                Mail::to('info.gretabrat@gmail.com')->send(new Contact($name, $surname, $email, $message));
             } else {
-                Mail::to('paskanass@gmail.com')->send(new Contact($name, $surname, $email, $messages));
+                Mail::to('paskanass@gmail.com')->send(new Contact($name, $surname, $email, $message));
             }
             return response()->json([
                 'status' => 200
