@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Achievement;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -18,7 +19,7 @@ class AchievementPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return in_array($user->role, [Role::IS_ADMIN]);
     }
 
     /**
