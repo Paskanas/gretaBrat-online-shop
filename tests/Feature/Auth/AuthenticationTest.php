@@ -3,7 +3,6 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -31,7 +30,7 @@ class AuthenticationTest extends TestCase
 
         $response->assertJsonStructure([
             'access_token',
-            'token_type'
+            'token_type',
         ]);
         $response->assertJson(['token_type' => 'Bearer']);
         $response->assertStatus(201);

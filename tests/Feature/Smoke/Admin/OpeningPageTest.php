@@ -5,22 +5,19 @@ namespace Tests\Feature\Smoke\Admin;
 use App\Models\PortfolioImage;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Http\File;
-use Illuminate\Support\Facades\Storage;
-use Tests\Helpers\TestHelper;
 use Tests\TestCase;
 
 class OpeningPageTest extends TestCase
 {
-
     use RefreshDatabase;
+
     private $publicDirectoryPath;
+
     private $directoryPath;
 
     private function removeDirectory($directory)
     {
-        if (!is_dir($directory)) {
+        if (! is_dir($directory)) {
             return;
         }
 
@@ -30,7 +27,7 @@ class OpeningPageTest extends TestCase
                 continue;
             }
 
-            $filePath = $directory . '/' . $file;
+            $filePath = $directory.'/'.$file;
             if (is_dir($filePath)) {
                 $this->removeDirectory($filePath);
             } else {
@@ -48,7 +45,7 @@ class OpeningPageTest extends TestCase
         $this->actingAs($user);
         $this->directoryPath = 'storage/images/test/portfolio/';
         $this->publicDirectoryPath = public_path($this->directoryPath);
-        if (!is_dir($this->publicDirectoryPath)) {
+        if (! is_dir($this->publicDirectoryPath)) {
             mkdir($this->publicDirectoryPath, 0755, true);
         }
     }
@@ -78,19 +75,18 @@ class OpeningPageTest extends TestCase
         return $string;
     }
 
-
     public function manageFiles($portfolioImage)
     {
 
-        $filePath = $this->publicDirectoryPath . $this->sanitizeString($portfolioImage->title) . '.jpg';
-        $content  = file_get_contents($portfolioImage->photo_path);
+        $filePath = $this->publicDirectoryPath.$this->sanitizeString($portfolioImage->title).'.jpg';
+        $content = file_get_contents($portfolioImage->photo_path);
         file_put_contents($filePath, $content);
-        $fileUrl = asset('public' . $this->directoryPath . $this->sanitizeString($portfolioImage->title) . '.jpg');
-
+        $fileUrl = asset('public'.$this->directoryPath.$this->sanitizeString($portfolioImage->title).'.jpg');
 
         $portfolioImage->photo_path = $fileUrl;
         $portfolioImage->save();
     }
+
     public function test_portfolio_image_single_page_can_be_rendered()
     {
         $portfolioImage = PortfolioImage::factory()->create();
@@ -101,6 +97,7 @@ class OpeningPageTest extends TestCase
 
         $response->assertStatus(200);
     }
+
     public function test_portfolio_image_single_page_check_all_can_be_rendered()
     {
         foreach (range(1, 10) as $i) {

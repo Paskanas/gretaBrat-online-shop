@@ -2,8 +2,13 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Location\City;
+use App\Models\Location\Country;
+use App\Models\Location\State;
 use Illuminate\Console\Command;
-use Spatie\Sitemap\SitemapGenerator;
+use Illuminate\Support\Carbon;
+use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\Tags\Url;
 
 class GenerateSitemap extends Command
 {
@@ -12,14 +17,14 @@ class GenerateSitemap extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'sitemap:generate';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Generates the sitemap automatically.';
 
     /**
      * Execute the console command.
@@ -28,6 +33,72 @@ class GenerateSitemap extends Command
      */
     public function handle()
     {
-        return SitemapGenerator::create('https://example.com')->writeToFile($path);;
+        $sitemap = Sitemap::create()
+            ->add($this->url(''))
+            ->add($this->url('about-me'))
+            ->add($this->url('contact'));
+
+        // $this->addCountries($sitemap);
+
+        // $this->addStates($sitemap);
+
+        // $this->addCities($sitemap);
+
+        $sitemap->writeToFile(public_path('sitemap.xml'));
+
+        $this->line('Done!');
+
+        return 0;
     }
+
+    private function url($url): Url
+    {
+        $site = 'https://gretabrat.com/';
+
+        return Url::create($site.$url)
+            ->setLastModificationDate(Carbon::yesterday())
+            ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+            ->setPriority(1);
+    }
+
+    // private function addCountries(Sitemap $sitemap): void
+    // {
+    //     $countries = Country::where('manual_verify', '1')->get();
+
+    //     foreach ($countries as $country) {
+    //         $sitemap->add($this->url("world/{$country->country}"));
+    //     }
+    // }
+
+    // private function addStates(Sitemap $sitemap): void
+    // {
+    //     $states = State::with('country')
+    //         ->where([
+    //             'manual_verify' => 1,
+    //             ['total_litter', '>', 0],
+    //             ['total_contributors', '>', 0],
+    //         ])
+    //         ->get();
+
+    //     foreach ($states as $state) {
+    //         $sitemap->add($this->url("world/{$state->country->country}/{$state->state}"));
+    //     }
+    // }
+
+    // private function addCities(Sitemap $sitemap): void
+    // {
+    //     $cities = City::with('state.country')
+    //         ->where([
+    //             ['total_images', '>', 0],
+    //             ['total_litter', '>', 0],
+    //             ['total_contributors', '>', 0],
+    //         ])
+    //         ->get();
+
+    //     foreach ($cities as $city) {
+    //         $sitemap->add($this->url(
+    //             "world/{$city->state->country->country}/{$city->state->state}/{$city->city}/map")
+    //         );
+    //     }
+    // }
 }

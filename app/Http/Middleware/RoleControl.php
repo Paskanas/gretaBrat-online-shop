@@ -18,7 +18,6 @@ class RoleControl
     public function handle(Request $request, Closure $next, $role)
     {
         $userRole = $request->user()?->role ?? 0;
-
         if (!auth()->check() || auth()->user()->role != Role::IS_ADMIN) {
             abort(403);  // 403 Forbidden
         }

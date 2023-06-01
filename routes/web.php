@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\Admin\ArtController as AdminArtController;
-use App\Http\Controllers\User\AchievementController as UserAchievementController;
 use App\Http\Controllers\Admin\AchievementController as AdminAchievementController;
-use App\Http\Controllers\User\EmailController as UserEmailController;
+use App\Http\Controllers\Admin\ArtController as AdminArtController;
 use App\Http\Controllers\Admin\OptimizeController as AdminOptimizeController;
-use App\Http\Controllers\User\PortfolioImageController as UserPortfolioImageController;
 use App\Http\Controllers\Admin\PortfolioImageController as AdminPortfolioImageController;
+use App\Http\Controllers\User\AchievementController as UserAchievementController;
+use App\Http\Controllers\User\EmailController as UserEmailController;
+use App\Http\Controllers\User\PortfolioImageController as UserPortfolioImageController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -31,9 +31,10 @@ Route::get('/contact', function () {
 
 Route::post('/contacts', [UserEmailController::class, 'sendEmail'])->name('send');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::middleware('auth')->group(function () {
     // Arts
-    Route::prefix('arts-admin')->name('arts-')->middleware('roleControl:admin')->group(function () {
+
+    Route::prefix('arts-admin')->name('arts-')->middleware('roleControl:admin'/*, 'can:viewAny,user'*/ /*, 'can:view,art'*/)->group(function () {
         Route::get('', [AdminArtController::class, 'index'])->name('index');
         Route::get('create', [AdminArtController::class, 'create'])->name('create');
         Route::post('', [AdminArtController::class, 'store'])->name('store');
@@ -69,4 +70,4 @@ Route::group(['middleware' => 'auth'], function () {
     //artisan clear cache
     Route::get('/optimize', [AdminOptimizeController::class, 'optimize'])->name('optimize')->middleware('roleControl:admin');
 });
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

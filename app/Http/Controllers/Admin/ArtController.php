@@ -3,18 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Art;
 use App\Http\Requests\StoreArtRequest;
 use App\Http\Requests\UpdateArtRequest;
+use App\Models\Art;
 use App\Models\Image;
 
 class ArtController extends Controller
 {
-
-    public function __construct()
+    private function authenticate()
     {
-        // $this->authorize('artworks_page');      //third security
-        // $this->authorize('viewAny');            //forth security
+        $this->authorize('artworks_page');      //third securit
     }
 
     /**
@@ -24,7 +22,9 @@ class ArtController extends Controller
      */
     public function index()
     {
+        $this->authenticate();
         $arts = Art::all();
+
         return view('admin.art.index', ['arts' => $arts]);
     }
 
@@ -35,6 +35,8 @@ class ArtController extends Controller
      */
     public function create()
     {
+        $this->authenticate();
+
         return view('admin.art.create', []);
     }
 
@@ -46,6 +48,7 @@ class ArtController extends Controller
      */
     public function store(StoreArtRequest $request, Image $image)
     {
+        $this->authenticate();
         $art = new Art;
         $art->title = $request->title;
         $art->description = $request->description;
@@ -59,6 +62,7 @@ class ArtController extends Controller
         }
 
         $art->save();
+
         return redirect()->route('arts-index');
     }
 
@@ -70,6 +74,8 @@ class ArtController extends Controller
      */
     public function edit(Art $art)
     {
+        $this->authenticate();
+
         return view('admin.art.edit', ['art' => $art]);
     }
 
@@ -82,10 +88,10 @@ class ArtController extends Controller
      */
     public function update(UpdateArtRequest $request, Art $art, Image $image)
     {
+        $this->authenticate();
         $art->title = $request->title;
         $art->description = $request->description;
         $art->price = $request->price;
-
 
         if ($request->file('photoPath')) {
             $this->deletePicture($art, $image, $art->photo_path);
@@ -100,6 +106,7 @@ class ArtController extends Controller
         }
 
         $art->save();
+
         return redirect()->route('arts-index');
     }
 
@@ -111,20 +118,24 @@ class ArtController extends Controller
      */
     public function destroy(Art $art, Image $image)
     {
+        $this->authenticate();
         $this->deletePicture($art, $image, $art->photo_path);
         $this->deletePicture($art, $image, $art->hover_photo_path);
         $art->delete();
+
         return redirect()->route('arts-index');
     }
 
     public function deletePicture(Art $art, Image $image, $path)
     {
+        $this->authenticate();
         if ($art->photo_path) {
             $image->deleteImage($path, 'artworks');
         }
 
         $art->photo_path = null;
         $art->save();
+
         return redirect()->back();
     }
 }

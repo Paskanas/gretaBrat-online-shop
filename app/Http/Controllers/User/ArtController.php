@@ -13,16 +13,17 @@ class ArtController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
     public function home()
     {
         $arts = Art::all();
+
         return Inertia::render('Home', ['arts' => $arts]);
     }
 
     public function shop()
     {
         $arts = Art::all();
+
         return Inertia::render('Shop', ['arts' => $arts]);
     }
 
@@ -35,6 +36,7 @@ class ArtController extends Controller
     public function showJs(int $artId)
     {
         $art = Art::where('id', $artId)->first();
+
         return Inertia::render('ShopItem', ['art' => $art, 'sizes' => Art::SIZES]);
     }
 }

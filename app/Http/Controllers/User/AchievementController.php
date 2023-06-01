@@ -17,9 +17,11 @@ class AchievementController extends Controller
     {
         return Inertia::render('AboutMe');
     }
+
     public function getAchievements()
     {
         $achievements = Achievement::select('id', 'achievement')->orderByDesc('id')->get();
+
         return response()->json($achievements);
     }
 }

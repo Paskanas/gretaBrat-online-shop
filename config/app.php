@@ -16,7 +16,7 @@ return [
     */
 
     // 'name' => env('APP_NAME', 'Greta Brat'),
-    'name' => "Greta Brat",
+    'name' => 'Greta Brat',
 
     /*
     |--------------------------------------------------------------------------
@@ -195,6 +195,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\TelescopeServiceProvider::class,
 
     ],
 
@@ -211,7 +212,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
-        'FFMpeg' => ProtoneMedia\LaravelFFMpeg\Support\FFMpeg::class
+        'FFMpeg' => ProtoneMedia\LaravelFFMpeg\Support\FFMpeg::class,
     ])->toArray(),
 
 ];

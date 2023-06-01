@@ -3,10 +3,8 @@
 namespace App\Jobs;
 
 use App\Models\PortfolioImage;
-use FFMpeg\Coordinate\Dimension;
 use FFMpeg\Format\Video\X264;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -24,6 +22,7 @@ class CompressVideo implements ShouldQueue
      * @return void
      */
     public $video;
+
     public function __construct(PortfolioImage $portfolioItem)
     {
         $this->video = $portfolioItem;
@@ -40,18 +39,18 @@ class CompressVideo implements ShouldQueue
         $high = (new X264)->setKiloBitrate(4000);
         if (App::environment('production')) {
             FFMpeg::fromDisk('prod-portfolio-orginal-video')
-                ->open($this->video->title . '.mp4')
+                ->open($this->video->title.'.mp4')
                 ->export()
                 ->inFormat($high)
                 ->toDisk('prod-portfolio-video')
-                ->save('/' . $this->video->title . '.mp4');
+                ->save('/'.$this->video->title.'.mp4');
         } else {
             FFMpeg::fromDisk('portfolio-orginal-video')
-                ->open($this->video->title . '.mp4')
+                ->open($this->video->title.'.mp4')
                 ->export()
                 ->inFormat($high)
                 ->toDisk('portfolio-video')
-                ->save('/' . $this->video->title . '.mp4');
+                ->save('/'.$this->video->title.'.mp4');
         }
     }
 }

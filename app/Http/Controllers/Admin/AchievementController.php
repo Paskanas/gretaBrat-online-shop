@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Achievement;
 use App\Http\Requests\StoreAchievementRequest;
 use App\Http\Requests\UpdateAchievementRequest;
+use App\Models\Achievement;
 
 class AchievementController extends Controller
 {
-
     public function __construct()
     {
         // $this->authorize('achievements_page');  //third security
         // $this->authorize('viewAny');            //forth security
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -23,6 +23,7 @@ class AchievementController extends Controller
     public function index()
     {
         $achievements = Achievement::select('id', 'achievement')->orderByDesc('id')->get();
+
         return view('admin.achievements.index', ['achievements' => $achievements]);
     }
 
@@ -52,7 +53,6 @@ class AchievementController extends Controller
         return redirect()->route('achievements-index');
     }
 
-
     /**
      * Update the specified resource in storage.
      *
@@ -65,6 +65,7 @@ class AchievementController extends Controller
         $achievement->achievement = $request->achievement;
 
         $achievement->save();
+
         return redirect()->route('achievements-index');
     }
 
@@ -77,6 +78,7 @@ class AchievementController extends Controller
     public function destroy(Achievement $achievement)
     {
         $achievement->delete();
+
         return redirect()->route('achievements-index');
     }
 }

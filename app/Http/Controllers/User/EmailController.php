@@ -3,15 +3,14 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use App\Mail\Contact;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
 class EmailController extends Controller
 {
-
     public function sendEmail(Request $request)
     {
         $validator = Validator::make(
@@ -40,9 +39,10 @@ class EmailController extends Controller
             } else {
                 Mail::to('paskanass@gmail.com')->send(new Contact($name, $surname, $email, $message));
             }
+
             return response()->json([
-                'status' => 200
+                'status' => 200,
             ]);
-        };
+        }
     }
 }

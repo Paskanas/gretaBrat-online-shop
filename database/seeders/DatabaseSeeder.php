@@ -23,14 +23,14 @@ class DatabaseSeeder extends Seeder
             'name' => 'Greta',
             'email' => 'greta@gmail.com',
             'password' => Hash::make('123'),
-            'role' => Role::IS_ADMIN
+            'role' => Role::IS_ADMIN,
         ]);
 
         DB::table('users')->insert([
             'name' => 'User',
             'email' => 'user@gmail.com',
             'password' => Hash::make('123'),
-            'role' => Role::IS_USER
+            'role' => Role::IS_USER,
         ]);
 
         $achievements = [
@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
             'Crypto art fair AR group exhibition, New York, USA,',
             '2021 Art Without a Roof, group exhibition, Vilnius, Lithuania, 2021',
             'Artifacts of the metaverse, group exhibition, Denver, USA, 2021',
-            'Member of @depthcore an international art collective, 2021'
+            'Member of @depthcore an international art collective, 2021',
         ];
 
         foreach (array_reverse($achievements) as $achievement) {

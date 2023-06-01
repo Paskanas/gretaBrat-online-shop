@@ -105,6 +105,6 @@ return [
     |
     */
 
-    'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'Greta Brat'), '_') . '_cache_'),
+    'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'Greta Brat'), '_').'_cache_'),
 
 ];

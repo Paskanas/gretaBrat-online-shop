@@ -31,7 +31,7 @@ class ArtPolicy
      */
     public function view(User $user, Art $art)
     {
-        //
+        return in_array($user->role, [Role::IS_ADMIN]);
     }
 
     /**

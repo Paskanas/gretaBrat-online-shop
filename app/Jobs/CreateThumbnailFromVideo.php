@@ -4,7 +4,6 @@ namespace App\Jobs;
 
 use App\Models\PortfolioImage;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -22,6 +21,7 @@ class CreateThumbnailFromVideo implements ShouldQueue
      * @return void
      */
     public $video;
+
     public function __construct(PortfolioImage $portfolioItem)
     {
         $this->video = $portfolioItem;
@@ -34,17 +34,17 @@ class CreateThumbnailFromVideo implements ShouldQueue
      */
     public function handle()
     {
-        $destination = '/' . 'thumbnails' . '/' . $this->video->title . '.png';
+        $destination = '/'.'thumbnails'.'/'.$this->video->title.'.png';
         if (App::environment('production')) {
             FFMpeg::fromDisk('prod-portfolio-orginal-video')
-                ->open($this->video->title . '.mp4')
+                ->open($this->video->title.'.mp4')
                 ->getFrameFromSeconds(2)
                 ->export()
                 ->toDisk('prod-portfolio-video')
                 ->save($destination);
         } else {
             FFMpeg::fromDisk('portfolio-orginal-video')
-                ->open($this->video->title . '.mp4')
+                ->open($this->video->title.'.mp4')
                 ->getFrameFromSeconds(2)
                 ->export()
                 ->toDisk('portfolio-video')

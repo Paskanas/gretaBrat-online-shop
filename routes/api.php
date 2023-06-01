@@ -20,7 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::get('/portfolio-images', [UserPortfolioImageController::class, 'getPortfolioImages'])->name('getPortfolioImages');
 Route::get('/get-max-order-number', [UserPortfolioImageController::class, 'getMaxOrderNum'])->name('getMaxOrderNum');
 Route::get('/achievements', [UserAchievementController::class, 'getAchievements'])->name('getAchievements');

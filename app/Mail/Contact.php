@@ -14,8 +14,11 @@ class Contact extends Mailable
     use Queueable, SerializesModels;
 
     public $name;
+
     public $surname;
+
     public $email;
+
     public $messages;
 
     /**
@@ -41,7 +44,7 @@ class Contact extends Mailable
         return new Envelope(
             // from: new Address('info.gretabrat@gmail.com', 'Gretabrat website'),
             replyTo: [
-                new Address($this->email, $this->name)
+                new Address($this->email, $this->name),
             ],
             subject: 'Contact from Gretabrat website',
         );

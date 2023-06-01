@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\PortfolioImage;
 use App\Models\Image;
+use App\Models\PortfolioImage;
 use Inertia\Inertia;
-
 
 class PortfolioImageController extends Controller
 {
@@ -36,6 +35,7 @@ class PortfolioImageController extends Controller
         if ($maxOrderNum % 2 === 1) {
             $maxOrderNum -= 1;
         }
+
         return response()->json($maxOrderNum);
     }
 }

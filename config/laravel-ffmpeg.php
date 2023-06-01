@@ -5,7 +5,6 @@ return [
         // 'binaries' => env('FFMPEG_BINARIES', 'ffmpeg'),
         'binaries' => storage_path('app\ffmpeg\bin\ffmpeg.exe'),
 
-
         'threads' => 12,   // set to false to disable the default 'threads' filter
     ],
 

@@ -11,6 +11,6 @@ class Art extends Model
 
     const SIZES = [
         'size' => ['30x20', '60x40'],
-        'shipping' => [0, 1]
+        'shipping' => [0, 1],
     ];
 }

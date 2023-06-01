@@ -3,16 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\PortfolioImage;
 use App\Http\Requests\StorePortfolioImageRequest;
 use App\Http\Requests\UpdatePortfolioImageRequest;
 use App\Jobs\CompressVideo;
 use App\Jobs\CreateThumbnailFromVideo;
 use App\Models\Image;
+use App\Models\PortfolioImage;
 use getID3;
 use Illuminate\Support\Facades\App;
-
-
 // import the Intervention Image Manager Class
 use Intervention\Image\ImageManager;
 
@@ -25,6 +23,7 @@ class PortfolioImageController extends Controller
         // $this->authorize('portfolio_images_page');  //third security
         // $this->authorize('viewAny');                //forth security
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -45,7 +44,7 @@ class PortfolioImageController extends Controller
                 $height = $imageManager->make($image->getAssetPath($content->photo_path, $this->directory))->height();
                 $portfolioImages[$key]['imageDimentions'] = [$width, $height];
                 $portfolioImages[$key]['isImage'] = true;
-            } else if ($extension === 'mp4') {
+            } elseif ($extension === 'mp4') {
                 $getID3 = new getID3;
                 $file = $getID3->analyze($image->getAssetPath($portfolioImages[$key]->photo_path, $this->directory));
                 if ($file && array_key_exists('video', $file)) {
@@ -72,6 +71,7 @@ class PortfolioImageController extends Controller
             $order[$number] = $number;
         }
         $availableOrders = array_diff($order, $portfolioImages);
+
         return view('admin.portfolioImage.create', ['availableOrders' => $availableOrders]);
     }
 
@@ -87,7 +87,6 @@ class PortfolioImageController extends Controller
         $portfolioImage->title = $request->title;
         $portfolioImage->order = $request->order;
 
-
         $content = $request->file('photoPath');
         if ($content) {
             $portfolioImage->photo_path = $image->processImage($request, $portfolioImage->title, 'photoPath', null, $this->directory);
@@ -98,6 +97,7 @@ class PortfolioImageController extends Controller
             CreateThumbnailFromVideo::dispatch($portfolioImage);
             CompressVideo::dispatch($portfolioImage);
         }
+
         return redirect()->route('portfolioImages-index');
     }
 
@@ -116,14 +116,15 @@ class PortfolioImageController extends Controller
             $height = $imageManager->make($image->getAssetPath($portfolioImage->photo_path, $this->directory))->height();
             $portfolioImage['imageDimentions'] = [$width, $height];
             $portfolioImage['isImage'] = true;
-        } else if ($extension === 'mp4') {
+        } elseif ($extension === 'mp4') {
             $getID3 = new getID3;
             $file = $getID3->analyze($image->getAssetPath($portfolioImage->photo_path, $this->directory));
             $portfolioImage['imageDimentions'] = [$file['video']['resolution_x'], $file['video']['resolution_y']];
             $portfolioImage['isVideo'] = true;
         }
+
         return view('admin.portfolioImage.show', [
-            'portfolioImage' => $portfolioImage
+            'portfolioImage' => $portfolioImage,
         ]);
     }
 
@@ -148,7 +149,7 @@ class PortfolioImageController extends Controller
             $height = $imageManager->make($image->getAssetPath($portfolioImage->photo_path, $this->directory))->height();
             $portfolioImage['imageDimentions'] = [$width, $height];
             $portfolioImage['isImage'] = true;
-        } else if ($extension === 'mp4') {
+        } elseif ($extension === 'mp4') {
             $getID3 = new getID3;
             $file = $getID3->analyze($image->getAssetPath($portfolioImage->photo_path, $this->directory));
             $portfolioImage['imageDimentions'] = [$file['video']['resolution_x'], $file['video']['resolution_y']];
@@ -156,6 +157,7 @@ class PortfolioImageController extends Controller
         }
 
         $availableOrders = array_diff($order, $portfolioOrders);
+
         return view('admin.portfolioImage.edit', ['portfolioImage' => $portfolioImage, 'availableOrders' => $availableOrders]);
     }
 
@@ -171,7 +173,6 @@ class PortfolioImageController extends Controller
         $portfolioImage->title = $request->title;
         $portfolioImage->order = $request->order;
 
-
         if ($request->file('photoPath')) {
             $this->deletePicture($portfolioImage, $image);
             $portfolioImage->delete();
@@ -179,6 +180,7 @@ class PortfolioImageController extends Controller
         }
 
         $portfolioImage->save();
+
         return redirect()->route('portfolioImages-index');
     }
 
@@ -192,6 +194,7 @@ class PortfolioImageController extends Controller
     {
         $this->deletePicture($portfolioImage, $image);
         $portfolioImage->delete();
+
         return redirect()->route('portfolioImages-index');
     }
 
@@ -204,6 +207,7 @@ class PortfolioImageController extends Controller
 
         $portfolioImage->photo_path = null;
         $portfolioImage->save();
+
         return redirect()->back();
     }
 }
