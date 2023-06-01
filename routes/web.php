@@ -70,4 +70,4 @@ Route::middleware('auth')->group(function () {
     //artisan clear cache
     Route::get('/optimize', [AdminOptimizeController::class, 'optimize'])->name('optimize')->middleware('roleControl:admin');
 });
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
