@@ -22,7 +22,7 @@ class PortfolioImageController extends Controller
 
     public function getPortfolioImages(Image $image)
     {
-        $portfolioImages = PortfolioImage::where('order', '>', 0)->get();
+        $portfolioImages = PortfolioImage::where('order', '>', 0)->orderBy('order')->get();
         foreach ($portfolioImages as $key => $content) {
             $portfolioImages[$key]['extension'] = $image->getExtension($content->photo_path);
         }
