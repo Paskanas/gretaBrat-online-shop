@@ -13,6 +13,8 @@ This is a portfolio website of a digital artist Greta Brat. The website is creat
 - `PHP Laravel`
 - `React.js`
 - `MySQL` database
+- `TypeScript`
+- `PHPunit`
 
 ## Visit Website
 

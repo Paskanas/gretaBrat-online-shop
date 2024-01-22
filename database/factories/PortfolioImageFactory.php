@@ -16,8 +16,13 @@ class PortfolioImageFactory extends Factory
      */
     public function definition()
     {
+        $counter = 1;
         return [
-            //
+            'photo_path' => $this->faker->imageUrl($width = 640, $height = 480, 'jpg'),
+            'title' => $this->faker->sentence(),
+            'order' => $counter++,
+            'created_at' => $this->faker->dateTime(),
+            'updated_at' => $this->faker->dateTime()
         ];
     }
 }
