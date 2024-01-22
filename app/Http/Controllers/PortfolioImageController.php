@@ -55,7 +55,7 @@ class PortfolioImageController extends Controller
 
     public function home(Image $image)
     {
-        $portfolioImages = PortfolioImage::where('order', '>', 0)->get();
+        $portfolioImages = PortfolioImage::where('order', '>', 0)->orderByDesc('order')->get();
         $maxOrderNum = PortfolioImage::max('order');
 
         if ($maxOrderNum % 2 === 1) {
