@@ -1,5 +1,6 @@
 import { Art } from "@/types";
 import ShopImages from "./ShopImages";
+import "../Gallery/gallery.css";
 
 const ShopComponent = ({ small = false, arts }: { small?: boolean, arts: Art[] }) => {
     const showedItemsCount = small
@@ -13,42 +14,35 @@ const ShopComponent = ({ small = false, arts }: { small?: boolean, arts: Art[] }
             <h1 className="h1-color uppercase text-center mb-2">Limited Edition Prints</h1>
             <p className="uppercase text-lg text-gray-600 mb-8">Serenity Inspired Collection</p>
             
-            <div className="flex lg:max-w-screen-xl xl:max-w-screen-xl 2xl:max-w-screen-2xl w-full">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full px-4">
+            <div className="flex lg:max-w-screen-xl xl:max-w-screen-xl 2xl:max-w-screen-2xl">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full px-4">
                     {arts.map((art, index) => {
                         if (index < showedItemsCount) {
                             return (
-                                <div key={art.id} className="group">
-                                    <a
-                                        href={`/shop/${art.id}`}
-                                        className="block transition-transform duration-300 group-hover:scale-105"
-                                    >
-                                        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                                            <div className="aspect-square overflow-hidden">
-                                                <ShopImages 
-                                                    art={art} 
-                                                    imgHover="w-full h-full object-cover group-hover:opacity-80 transition-opacity duration-300" 
-                                                />
-                                            </div>
-                                            <div className="p-6">
-                                                <h2 className="text-xl font-bold mb-2 text-gray-800 group-hover:text-purple-600 transition-colors duration-300">
-                                                    {art.title}
-                                                </h2>
-                                                <p className="text-gray-600 mb-4 line-clamp-2">
-                                                    {art.description}
-                                                </p>
-                                                <div className="flex justify-between items-center">
-                                                    <span className="text-2xl font-bold text-purple-600">
-                                                        ${art.price}
-                                                    </span>
-                                                    <span className="text-sm text-gray-500 uppercase tracking-wide">
-                                                        View Details
-                                                    </span>
-                                                </div>
+                                <figure key={art.id} className="gallery__item group">
+                                    <a href={`/shop/${art.id}`} className="block relative">
+                                        <ShopImages 
+                                            art={art} 
+                                            imgHover="gallery__img" 
+                                        />
+                                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                            <h2 className="text-white font-semibold text-lg mb-1">
+                                                {art.title}
+                                            </h2>
+                                            <p className="text-white/90 text-sm mb-2 line-clamp-2">
+                                                {art.description}
+                                            </p>
+                                            <div className="flex justify-between items-center">
+                                                <span className="text-white font-bold text-xl">
+                                                    ${art.price}
+                                                </span>
+                                                <span className="text-white/80 text-sm uppercase tracking-wide">
+                                                    View Details
+                                                </span>
                                             </div>
                                         </div>
                                     </a>
-                                </div>
+                                </figure>
                             );
                         }
                     })}

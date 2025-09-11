@@ -24,17 +24,21 @@ const ShopItem = ({ auth, art, sizes }: ShopItemPageProps) => {
         <div>
             <Head title={`${art.title} - Shop`} />
             <Header />
-            <div className="flex flex-col lg:flex-row max-w-7xl mx-auto px-4 py-8 gap-8">
-                <div className="lg:w-2/3">
-                    <Gallery art={art} />
-                </div>
-                <div className="lg:w-1/3">
-                    <Options
-                        art={art}
-                        sizes={sizes}
-                        cartItems={cartItems}
-                        setCartItems={setCartItems}
-                    />
+            <div className="flex flex-col items-center mt-1 w-full">
+                <div className="flex lg:max-w-screen-xl xl:max-w-screen-xl 2xl:max-w-screen-2xl w-full">
+                    <div className="flex flex-col lg:flex-row w-full px-4 py-8 gap-8">
+                        <div className="lg:w-2/3">
+                            <Gallery art={art} />
+                        </div>
+                        <div className="lg:w-1/3">
+                            <Options
+                                art={art}
+                                sizes={sizes}
+                                cartItems={cartItems}
+                                setCartItems={setCartItems}
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
             <Footer />
