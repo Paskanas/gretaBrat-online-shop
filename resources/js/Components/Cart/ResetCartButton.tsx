@@ -4,9 +4,9 @@ const ResetCartButton = ({ setCartItems }: { setCartItems: any }) => {
             onClick={() => {
                 setCartItems([]);
             }}
-            className="bg-fuchsia-400 px-4 py-2 rounded"
+            className="bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-200 default-font"
         >
-            Clear cart
+            Clear Cart
         </button>
     );
 };

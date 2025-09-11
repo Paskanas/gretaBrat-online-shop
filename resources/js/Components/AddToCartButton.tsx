@@ -3,26 +3,45 @@ import { Art } from "@/types";
 const AddToCartButton = ({ cartItems, art, setCartItems }: { cartItems: any, art: Art, setCartItems: React.Dispatch<React.SetStateAction<any>> }) => {
     const addItem = (art: Art) => {
         const cartItemsTemp = [...cartItems];
-        const artWithCount = { ...art, count: 1 };
-        const foundItem = cartItems.find(({ id }: { id: number }) => id === art.id);
+        const cartItem = { 
+            art_id: art.id,
+            title: art.title,
+            price: art.price,
+            size: ["30x20"], // Default size - in real app this would come from size selection
+            count: 1 
+        };
+        const foundItem = cartItems.find(({ art_id }: { art_id: number }) => art_id === art.id);
 
         if (foundItem) {
             const itemIndex = cartItemsTemp.findIndex(
-                (item) => item.id === art.id
+                (item) => item.art_id === art.id
             );
             cartItemsTemp[itemIndex].count++;
             setCartItems(cartItemsTemp);
         } else {
-            setCartItems([...cartItems, artWithCount]);
+            setCartItems([...cartItems, cartItem]);
         }
     };
 
     return (
         <button
-            className="uppercase bg-pink-400 mt-5 px-4 py-2 rounded hover:bg-pink-500 transition-colors duration-300"
+            className="w-full font-semibold py-3 px-6 rounded-lg transition duration-200 uppercase tracking-wide default-font"
+            style={{
+                backgroundColor: 'var(--defaultColor)',
+                color: 'white',
+                border: `2px solid var(--defaultColor)`
+            }}
+            onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--lighterColor)';
+                e.currentTarget.style.borderColor = 'var(--lighterColor)';
+            }}
+            onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--defaultColor)';
+                e.currentTarget.style.borderColor = 'var(--defaultColor)';
+            }}
             onClick={() => addItem(art)}
         >
-            Add to bag
+            Add to Cart
         </button>
     );
 };

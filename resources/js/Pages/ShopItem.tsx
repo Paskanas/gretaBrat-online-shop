@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 import Gallery from "@/Components/ShopItem/Gallery";
 import Options from "@/Components/ShopItem/Options";
 import { ShopItemPageProps } from "@/types";
+import Header from "@/Components/Header";
+import Footer from "@/Components/Footer";
 
 const ShopItem = ({ auth, art, sizes }: ShopItemPageProps) => {
     const [cartItems, setCartItems] = useState(
         JSON.parse(localStorage.getItem("products") ?? "[]")
     );
+    
     useEffect(() => {
         localStorage.setItem("products", JSON.stringify(cartItems));
     }, [cartItems]);
@@ -17,26 +19,30 @@ const ShopItem = ({ auth, art, sizes }: ShopItemPageProps) => {
         const items = JSON.parse(localStorage.getItem("products") ?? '[]');
         setCartItems(items);
     }, []);
+    
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-        // cartItems={cartItems}
-        >
-            <Head title="Shop" />
-            <div className="grid grid-cols-12">
-                <div className="col-start-1 col-end-9 ">
-                    <Gallery art={art} />
-                </div>
-                <div className="col-start-9 col-end-13">
-                    <Options
-                        art={art}
-                        sizes={sizes}
-                        cartItems={cartItems}
-                        setCartItems={setCartItems}
-                    />
+        <div>
+            <Head title={`${art.title} - Shop`} />
+            <Header />
+            <div className="flex flex-col items-center mt-1 w-full">
+                <div className="flex lg:max-w-screen-xl xl:max-w-screen-xl 2xl:max-w-screen-2xl w-full">
+                    <div className="flex flex-col lg:flex-row w-full px-4 py-8 gap-8">
+                        <div className="lg:w-2/3">
+                            <Gallery art={art} />
+                        </div>
+                        <div className="lg:w-1/3">
+                            <Options
+                                art={art}
+                                sizes={sizes}
+                                cartItems={cartItems}
+                                setCartItems={setCartItems}
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
-        </AuthenticatedLayout>
+            <Footer />
+        </div>
     );
 };
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\User\EmailController as UserEmailController;
 use App\Http\Controllers\Admin\OptimizeController as AdminOptimizeController;
 use App\Http\Controllers\User\PortfolioImageController as UserPortfolioImageController;
 use App\Http\Controllers\Admin\PortfolioImageController as AdminPortfolioImageController;
+use App\Http\Controllers\User\ArtController as UserArtController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -30,6 +31,13 @@ Route::get('/contact', function () {
 })->name('contact');
 
 Route::post('/contacts', [UserEmailController::class, 'sendEmail'])->name('send');
+
+// Shop routes
+Route::get('/shop', [UserArtController::class, 'shop'])->name('shop');
+Route::get('/shop/{artId}', [UserArtController::class, 'showJs'])->name('shop.item');
+Route::get('/cart', function () {
+    return Inertia::render('Cart');
+})->name('cart');
 
 Route::group(['middleware' => 'auth'], function () {
     // Arts
