@@ -11,6 +11,8 @@ const Header = () => {
     const homePage = "/";
     const aboutPage = "/about-me";
     const contactPage = "/contact";
+    const shopPage = "/shop";
+    const cartPage = "/cart";
 
     return (
         <div>
@@ -88,6 +90,18 @@ const Header = () => {
                             About me
                         </ResponsiveNavLink>
                         <ResponsiveNavLink
+                            href={route("shop")}
+                            active={route().current("shop")}
+                        >
+                            Shop
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("cart")}
+                            active={route().current("cart")}
+                        >
+                            Cart
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
                             href={route("contact")}
                             active={route().current("contact")}
                         >
@@ -129,6 +143,26 @@ const Header = () => {
                                 } decoration-1 decoration decoration-inherit underline-offset-8 header-h2`}
                         >
                             About
+                        </h2>
+                    </a>
+                    <a href={route("shop")}>
+                        <h2
+                            className={`${pagePath === shopPage || pagePath.startsWith('/shop')
+                                    ? "underline"
+                                    : "hover:underline"
+                                } decoration-1 decoration decoration-inherit underline-offset-8 header-h2`}
+                        >
+                            Shop
+                        </h2>
+                    </a>
+                    <a href={route("cart")}>
+                        <h2
+                            className={`${pagePath === cartPage
+                                    ? "underline"
+                                    : "hover:underline"
+                                } decoration-1 decoration decoration-inherit underline-offset-8 header-h2`}
+                        >
+                            Cart
                         </h2>
                     </a>
                     <a href={route("contact")}>

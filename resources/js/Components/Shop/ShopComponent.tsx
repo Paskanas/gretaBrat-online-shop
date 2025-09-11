@@ -8,49 +8,51 @@ const ShopComponent = ({ small = false, arts }: { small?: boolean, arts: Art[] }
             : arts.length
         : arts.length;
 
-    const smallFormating = `flex ${showedItemsCount === 1 ? "justify-center" : "justify-between"
-        } w-10/12 text-center flex-col md:flex-row`;
-
-    const formatting = `grid grid-cols-3 gap-4 w-10/12 text-center`;
-
-    const imgHover = small
-        ? "rounded hover:contrast-75 duration-500"
-        : "rounded";
-
-    const ImageChangeOnMouseOver = ({ art }: { art: Art }) => {
-        return (
-            <div className="flex flex-col justify-items-center justify-center">
-                <ShopImages art={art} imgHover={imgHover} />
-
-                <h2>
-                    <span className="font-bold border-b-2 border-black mt-3 w-10">
-                        {art.title}
-                    </span>
-                </h2>
-                {small && <p className="text-black">{art.description}</p>}
-            </div>
-        );
-    };
-
     return (
         <div className="flex flex-col items-center mt-1 w-full">
-            <h1 className="uppercase text-4xl m-6">Limited edition prints</h1>
-            <p className="uppercase">Serinity inspired collection</p>
-            <div className={small ? smallFormating : formatting}>
-                {arts.map((art, index) => {
-                    // art.showHover = false;
-                    if (index < showedItemsCount) {
-                        return (
-                            <a
-                                href={`/shop/${art.id}`}
-                                className={`m-4 inline-block md:w-1/${showedItemsCount} w-full h-auto hover:text-purple-400 duration-500`}
-                                key={index}
-                            >
-                                <ImageChangeOnMouseOver art={art} />
-                            </a>
-                        );
-                    }
-                })}
+            <h1 className="h1-color uppercase text-center mb-2">Limited Edition Prints</h1>
+            <p className="uppercase text-lg text-gray-600 mb-8">Serenity Inspired Collection</p>
+            
+            <div className="flex lg:max-w-screen-xl xl:max-w-screen-xl 2xl:max-w-screen-2xl w-full">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full px-4">
+                    {arts.map((art, index) => {
+                        if (index < showedItemsCount) {
+                            return (
+                                <div key={art.id} className="group">
+                                    <a
+                                        href={`/shop/${art.id}`}
+                                        className="block transition-transform duration-300 group-hover:scale-105"
+                                    >
+                                        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                                            <div className="aspect-square overflow-hidden">
+                                                <ShopImages 
+                                                    art={art} 
+                                                    imgHover="w-full h-full object-cover group-hover:opacity-80 transition-opacity duration-300" 
+                                                />
+                                            </div>
+                                            <div className="p-6">
+                                                <h2 className="text-xl font-bold mb-2 text-gray-800 group-hover:text-purple-600 transition-colors duration-300">
+                                                    {art.title}
+                                                </h2>
+                                                <p className="text-gray-600 mb-4 line-clamp-2">
+                                                    {art.description}
+                                                </p>
+                                                <div className="flex justify-between items-center">
+                                                    <span className="text-2xl font-bold text-purple-600">
+                                                        ${art.price}
+                                                    </span>
+                                                    <span className="text-sm text-gray-500 uppercase tracking-wide">
+                                                        View Details
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            );
+                        }
+                    })}
+                </div>
             </div>
         </div>
     );
